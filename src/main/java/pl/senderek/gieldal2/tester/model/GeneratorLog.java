@@ -1,7 +1,6 @@
-package model;
+package pl.senderek.gieldal2.tester.model;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,96 +9,66 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "generator_log")
-@XmlRootElement
-@NamedQueries({
-        @NamedQuery(name = "GeneratorLog.findAll", query = "SELECT g FROM GeneratorLog g"),
-        @NamedQuery(name = "GeneratorLog.findById", query = "SELECT g FROM GeneratorLog g WHERE g.id = :id")})
 public class GeneratorLog implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
+    private Long id;
+
     @Column(name = "client_id")
-    private Integer clientId;
-    @Basic(optional = false)
+    private Long clientId;
+
     @Column(name = "active_clients_quantity")
     private Integer activeClientsQuantity;
-    @Basic(optional = false)
+
     @Column(name = "test_start_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date testStartTime;
-    @Basic(optional = false)
+
     @Column(name = "test_type")
     private String testType;
-    @Basic(optional = false)
+
     @Column(name = "req_no")
     private Integer reqNo;
-    @Basic(optional = false)
+
     @Column(name = "req_type")
     private String reqType;
-    @Basic(optional = false)
+
     @Column(name = "resp_type")
     private String respType;
-    @Basic(optional = false)
+
     @Column(name = "req_time")
     private Integer reqTime;
-    @Basic(optional = false)
+
     @Column(name = "backend_time")
     private Integer backendTime;
-    @Basic(optional = false)
+
     @Column(name = "db_selects_quantity")
     private Integer dbSelectsQuantity;
-    @Basic(optional = false)
+
     @Column(name = "db_selects_time")
     private Integer dbSelectsTime;
-    @Basic(optional = false)
+
     @Column(name = "db_updates_quantity")
     private Integer dbUpdatesQuantity;
-    @Basic(optional = false)
+
     @Column(name = "db_updates_time")
     private Integer dbUpdatesTime;
 
-    public GeneratorLog() {
-    }
-
-    public GeneratorLog(Integer id) {
-        this.id = id;
-    }
-
-    public GeneratorLog(Integer id, Integer clientId, Integer activeClientsQuantity, Date testStartTime, String testType, Integer reqNo, String reqType, String respType, Integer reqTime, Integer backendTime, Integer dbSelectsQuantity, Integer dbSelectsTime, Integer dbUpdatesQuantity, Integer dbUpdatesTime) {
-        this.id = id;
-        this.clientId = clientId;
-        this.activeClientsQuantity = activeClientsQuantity;
-        this.testStartTime = testStartTime;
-        this.testType = testType;
-        this.reqNo = reqNo;
-        this.reqType = reqType;
-        this.respType = respType;
-        this.reqTime = reqTime;
-        this.backendTime = backendTime;
-        this.dbSelectsQuantity = dbSelectsQuantity;
-        this.dbSelectsTime = dbSelectsTime;
-        this.dbUpdatesQuantity = dbUpdatesQuantity;
-        this.dbUpdatesTime = dbUpdatesTime;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(Integer clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 
@@ -198,26 +167,4 @@ public class GeneratorLog implements Serializable {
     public void setDbUpdatesTime(Integer dbUpdatesTime) {
         this.dbUpdatesTime = dbUpdatesTime;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof GeneratorLog)) {
-            return false;
-        }
-        GeneratorLog other = (GeneratorLog) object;
-        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
-    }
-
-    @Override
-    public String toString() {
-        return "GeneratorLog[ id=" + id + " ]";
-    }
-
 }
