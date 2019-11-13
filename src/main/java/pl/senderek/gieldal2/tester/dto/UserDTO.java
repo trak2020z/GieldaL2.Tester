@@ -49,11 +49,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String geteMail() {
+    public String getMail() {
         return eMail;
     }
 
-    public void seteMail(String eMail) {
+    public void setMail(String eMail) {
         this.eMail = eMail;
     }
 

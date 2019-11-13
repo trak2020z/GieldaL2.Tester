@@ -9,7 +9,6 @@ import java.util.Optional;
 public interface ShareService {
 
     List<ShareDTO> getAllShares();
-    List<ShareDTO> getUserShares(Long userId);
     Optional<ShareDTO> getShare(Long shareId);
     void createShare(ShareDTO share);
     void modifyShare(ShareDTO share);

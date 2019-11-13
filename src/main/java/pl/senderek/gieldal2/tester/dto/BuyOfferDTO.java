@@ -1,28 +1,26 @@
-package pl.senderek.gieldal2.tester.model;
+package pl.senderek.gieldal2.tester.dto;
 
 import java.time.LocalDateTime;
 
-public class BuyOffer {
-
+public class BuyOfferDTO {
     private Long id;
-    private User seller;
-    private Stock stock;
+    private Long sellerId;
+    private Long stockId;
     private Integer amount;
     private Double price;
     private LocalDateTime date;
 
+    public Long getSellerId() { return sellerId; }
 
-    public User getSeller() { return seller; }
-
-    public void setSeller(User seller) { this.seller = seller; }
-
-    public Stock getStock() { return stock; }
-
-    public void setStock(Stock stock) { this.stock = stock; }
+    public void setSellerId(Long sellerId) { this.sellerId = sellerId; }
 
     public Long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }
+
+    public Long getStockId() { return stockId; }
+
+    public void setStockId(Long stockId) { this.stockId = stockId; }
 
     public Integer getAmount() { return amount; }
 
@@ -35,8 +33,6 @@ public class BuyOffer {
     public LocalDateTime getDate() { return date; }
 
     public void setDate(LocalDateTime date) { this.date = date; }
-
-
 
 
 }

@@ -1,11 +1,26 @@
 package pl.senderek.gieldal2.tester.model;
 
+import java.time.LocalDateTime;
+
 public class SellOffer {
+
     private Long id;
-    private User user;
     private Share share;
     private Integer amount;
-    private Double value;
+    private Double price;
+    private LocalDateTime date;
+
+    public Share getShare() { return share; }
+
+    public void setShare(Share share) { this.share = share; }
+
+    public Double getPrice() { return price; }
+
+    public void setPrice(Double price) { this.price = price; }
+
+    public LocalDateTime getDate() { return date; }
+
+    public void setDate(LocalDateTime date) { this.date = date; }
 
     public Long getId() {
         return id;
@@ -13,22 +28,6 @@ public class SellOffer {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Share getShare() {
-        return share;
-    }
-
-    public void setShare(Share share) {
-        this.share = share;
     }
 
     public Integer getAmount() {
@@ -39,11 +38,4 @@ public class SellOffer {
         this.amount = amount;
     }
 
-    public Double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
-    }
 }

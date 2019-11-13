@@ -22,11 +22,7 @@ public class ShareServiceImpl extends BenchmarkService implements ShareService {
         return getForEntityList(url, ShareDTO.class).getBody();
     }
 
-    @Override
-    public List<ShareDTO> getUserShares(Long userId) {
-        String url = USER_API + "/" + userId + "/shares";
-        return getForEntityList(url, ShareDTO.class).getBody();
-    }
+
 
     @Override
     public Optional<ShareDTO> getShare(Long shareId) {

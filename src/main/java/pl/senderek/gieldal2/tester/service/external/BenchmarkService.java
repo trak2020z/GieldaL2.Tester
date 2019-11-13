@@ -9,7 +9,7 @@ import pl.senderek.gieldal2.tester.config.TestConfig;
 
 import java.util.List;
 
-public abstract class BenchmarkService {
+public abstract class  BenchmarkService {
 
     protected static String STOCK_API = TestConfig.API_URL;
 
