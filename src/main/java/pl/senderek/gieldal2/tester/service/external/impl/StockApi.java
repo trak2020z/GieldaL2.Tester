@@ -1,4 +1,4 @@
-package pl.senderek.gieldal2.tester.service.external;
+package pl.senderek.gieldal2.tester.service.external.impl;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -9,9 +9,9 @@ import pl.senderek.gieldal2.tester.config.TestConfig;
 
 import java.util.List;
 
-public abstract class BenchmarkService {
+public abstract class StockApi {
 
-    protected static String STOCK_API = TestConfig.API_URL;
+    protected static String BASE_STOCK_API = TestConfig.API_URL;
 
     private static RestTemplate restTemplate = new RestTemplate();
 

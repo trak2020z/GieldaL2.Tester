@@ -2,9 +2,9 @@ package pl.senderek.gieldal2.tester.dto;
 
 public class ShareDTO {
     private Long id;
-    private String name;
-    private String abbreviation;
-    private Long ownerId;
+    private Long stockId;
+    private Long userId;
+    private Long amount;
 
     public Long getId() {
         return id;
@@ -14,27 +14,21 @@ public class ShareDTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getStockId() { return stockId; }
+
+    public void setStockId(Long stockId) { this.stockId = stockId; }
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getAbbreviation() {
-        return abbreviation;
-    }
+    public Long getAmount() { return amount; }
 
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
-    }
+    public void setAmount(Long amount) { this.amount = amount; }
 
-    public Long getOwnerId() {
-        return ownerId;
-    }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
 }

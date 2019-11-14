@@ -3,16 +3,16 @@ package pl.senderek.gieldal2.tester.model;
 import java.util.List;
 
 public class User {
-    Long id;
-    String name;
-    String surname;
-    String login;
-    String password;
-    String mail;
-    Double value;
-    List<Share> shares;
-    List<SellOffer> sellOffers;
-    List<BuyOffer> buyOffers;
+    private Long id;
+    private String name;
+    private String surname;
+    private String login;
+    private String password;
+    private String mail;
+    private Double value;
+    private List<Share> shares;
+    private List<SellOffer> sellOffers;
+    private List<BuyOffer> buyOffers;
 
     public Long getId() {
         return id;

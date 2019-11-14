@@ -3,17 +3,16 @@ package pl.senderek.gieldal2.tester.service.external.impl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.senderek.gieldal2.tester.dto.ShareDTO;
-import pl.senderek.gieldal2.tester.service.external.BenchmarkService;
 import pl.senderek.gieldal2.tester.service.external.ShareService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ShareServiceImpl extends BenchmarkService implements ShareService {
+public class ShareServiceImpl extends StockApi implements ShareService {
 
-    private static String USER_API = STOCK_API + "/api/Users";
-    private static String SHARE_API = STOCK_API + "/api/Shares";
+    private static String USER_API = BASE_STOCK_API + "/api/Users";
+    private static String SHARE_API = BASE_STOCK_API + "/api/Shares";
 
 
     @Override

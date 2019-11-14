@@ -2,9 +2,17 @@ package pl.senderek.gieldal2.tester.model;
 
 public class Share {
     private Long id;
-    private String name;
-    private String abbreviation;
+    private Stock stock;
     private User owner;
+    private Long amount;
+
+    public Long getAmount() { return amount; }
+
+    public void setAmount(Long amount) { this.amount = amount; }
+
+    public Stock getStock() { return stock; }
+
+    public void setStock(Stock stock) { this.stock = stock; }
 
     public Long getId() {
         return id;
@@ -12,22 +20,6 @@ public class Share {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAbbreviation() {
-        return abbreviation;
-    }
-
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
     }
 
     public User getOwner() {
