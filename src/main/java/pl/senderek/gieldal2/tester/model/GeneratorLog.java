@@ -1,5 +1,7 @@
 package pl.senderek.gieldal2.tester.model;
 
+import pl.senderek.gieldal2.tester.dto.StockApiResponse;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -55,6 +57,26 @@ public class GeneratorLog implements Serializable {
 
     @Column(name = "db_updates_time")
     private Integer dbUpdatesTime;
+
+    public GeneratorLog() {
+
+    }
+
+    public GeneratorLog(TestContext context, String reqType, String respType, Integer reqTime, StockApiResponse response) {
+        this.clientId = context.getClientId();
+        this.activeClientsQuantity = context.getActiveClientsQuantity();
+        this.testStartTime = context.getTestStartTime();
+        this.testType = context.getTestType();
+        this.reqNo = context.getReqNo().get();
+        this.reqType = reqType;
+        this.respType = respType;
+        this.reqTime = reqTime;
+        this.backendTime = response.getBackendTime();
+        this.dbSelectsQuantity = response.getSelectsCount();
+        this.dbSelectsTime = response.getSelectsTime();
+        this.dbUpdatesQuantity = response.getUpdatesCount();
+        this.dbUpdatesTime = response.getUpdatesTime();
+    }
 
     public Long getId() {
         return id;

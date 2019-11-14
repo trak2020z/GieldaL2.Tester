@@ -3,7 +3,6 @@ package pl.senderek.gieldal2.tester.dto;
 import java.time.LocalDateTime;
 
 public class SellOfferDTO {
-
     private Long id;
     private Long userId;
     private Long shareId;
@@ -38,6 +37,4 @@ public class SellOfferDTO {
     public LocalDateTime getDate() { return date; }
 
     public void setDate(LocalDateTime date) { this.date = date; }
-
-
 }

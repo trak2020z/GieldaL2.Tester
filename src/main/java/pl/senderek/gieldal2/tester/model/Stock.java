@@ -1,14 +1,11 @@
 package pl.senderek.gieldal2.tester.model;
 
-import java.util.List;
-
 public class Stock {
     private Long Id;
     private String name;
     private String abbreviation;
     private Double currentPrice;
     private Double priceDelta;
-    private List<Share> Shares;
 
     public Long getId() {
         return Id;
@@ -49,13 +46,4 @@ public class Stock {
     public void setPriceDelta(Double priceDelta) {
         this.priceDelta = priceDelta;
     }
-
-    public List<Share> getShares() {
-        return Shares;
-    }
-
-    public void setShares(List<Share> shares) {
-        Shares = shares;
-    }
-
 }

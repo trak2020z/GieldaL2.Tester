@@ -3,7 +3,6 @@ package pl.senderek.gieldal2.tester.model;
 import java.time.LocalDateTime;
 
 public class BuyOffer {
-
     private Long id;
     private User buyer;
     private Stock stock;
@@ -35,8 +34,4 @@ public class BuyOffer {
     public LocalDateTime getDate() { return date; }
 
     public void setDate(LocalDateTime date) { this.date = date; }
-
-
-
-
 }

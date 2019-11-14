@@ -2,12 +2,18 @@ package pl.senderek.gieldal2.tester.service.external.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import pl.senderek.gieldal2.tester.dto.ShareDTO;
 import pl.senderek.gieldal2.tester.model.Share;
 
-@Mapper(uses={UserMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, StockMapper.class})
 public interface ShareMapper {
-    @Mapping(source="owner.id", target="ownerId")
+
+    @Mappings({
+            @Mapping(source = "owner.id", target = "userId"),
+            @Mapping(source = "stock.id", target = "stockId")
+    })
     ShareDTO shareToShareDTO(Share share);
+
     Share shareDTOToShare(ShareDTO share);
 }

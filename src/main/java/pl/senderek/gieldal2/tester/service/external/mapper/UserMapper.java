@@ -4,8 +4,9 @@ import org.mapstruct.Mapper;
 import pl.senderek.gieldal2.tester.dto.UserDTO;
 import pl.senderek.gieldal2.tester.model.User;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     UserDTO userToUserDTO(User user);
+
     User userDTOToUser(UserDTO user);
 }

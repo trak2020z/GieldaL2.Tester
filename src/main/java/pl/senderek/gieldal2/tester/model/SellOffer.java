@@ -3,7 +3,6 @@ package pl.senderek.gieldal2.tester.model;
 import java.time.LocalDateTime;
 
 public class SellOffer {
-
     private Long id;
     private User seller;
     private Share share;
@@ -46,5 +45,4 @@ public class SellOffer {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
-
 }

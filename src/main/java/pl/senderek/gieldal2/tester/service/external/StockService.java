@@ -1,15 +1,13 @@
 package pl.senderek.gieldal2.tester.service.external;
 
-import pl.senderek.gieldal2.tester.dto.StockDTO;
+import pl.senderek.gieldal2.tester.model.Stock;
+import pl.senderek.gieldal2.tester.model.TestContext;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface StockService {
+    List<Stock> getAllStocks(TestContext context);
 
-    List<StockDTO> getAllStocks();
-    Optional<StockDTO> getStock(Long stockId);
-    void createStock(StockDTO stock);
-    void modifyStock(StockDTO stock);
-    void deleteStock(Long stockId);
+    Optional<Stock> getStock(TestContext context, Long stockId);
 }

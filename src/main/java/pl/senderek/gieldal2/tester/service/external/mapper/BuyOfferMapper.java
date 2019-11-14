@@ -6,13 +6,13 @@ import org.mapstruct.Mappings;
 import pl.senderek.gieldal2.tester.dto.BuyOfferDTO;
 import pl.senderek.gieldal2.tester.model.BuyOffer;
 
-@Mapper(uses={UserMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, StockMapper.class})
 public interface BuyOfferMapper {
-
     @Mappings({
-            @Mapping(source = "seller.id", target = "sellerId"),
+            @Mapping(source = "buyer.id", target = "userId"),
             @Mapping(source = "stock.id", target = "stockId")
     })
     BuyOfferDTO buyOfferToBuyOfferDTO(BuyOffer buyOffer);
+
     BuyOffer buyOfferDTOToBuyOffer(BuyOfferDTO buyOfferDTO);
 }

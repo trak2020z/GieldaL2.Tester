@@ -1,54 +1,42 @@
 package pl.senderek.gieldal2.tester.service.external.impl;
 
-import org.springframework.http.ResponseEntity;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import pl.senderek.gieldal2.tester.dto.ShareDTO;
+import pl.senderek.gieldal2.tester.model.Share;
+import pl.senderek.gieldal2.tester.model.TestContext;
+import pl.senderek.gieldal2.tester.model.User;
 import pl.senderek.gieldal2.tester.service.external.ShareService;
+import pl.senderek.gieldal2.tester.service.external.mapper.ShareMapper;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ShareServiceImpl extends StockApi implements ShareService {
 
-    private static String USER_API = BASE_STOCK_API + "/api/Users";
-    private static String SHARE_API = BASE_STOCK_API + "/api/Shares";
-
+    private static final String USER_API = BASE_STOCK_API + "/api/Users";
+    private static final String SHARE_API = BASE_STOCK_API + "/api/Shares";
+    private final ShareMapper mapper = Mappers.getMapper(ShareMapper.class);
 
     @Override
-    public List<ShareDTO> getAllShares() {
+    public List<Share> getAllShares(TestContext context) {
         String url = SHARE_API;
-        return getForEntityList(url, ShareDTO.class).getBody();
+        return getList(context, url, ShareDTO.class).stream().map(mapper::shareDTOToShare).collect(Collectors.toList());
     }
 
     @Override
-    public List<ShareDTO> getUserShares(Long userId) {
-        String url = USER_API + "/" + userId + "/shares";
-        return getForEntityList(url, ShareDTO.class).getBody();
+    public List<Share> getUserShares(TestContext context, User user) {
+        String url = USER_API + "/" + user.getId() + "/shares";
+        List<Share> shares = getList(context, url, ShareDTO.class).stream().map(mapper::shareDTOToShare).collect(Collectors.toList());
+        shares.forEach(x -> x.setOwner(user));
+        return shares;
     }
 
     @Override
-    public Optional<ShareDTO> getShare(Long shareId) {
+    public Optional<Share> getShare(TestContext context, Long shareId) {
         String url = SHARE_API + "/" + shareId;
-        ResponseEntity<ShareDTO> response = getForEntity(url, ShareDTO.class);
-        return Optional.ofNullable(response.getBody());
-    }
-
-    @Override
-    public void createShare(ShareDTO share) {
-        String url = SHARE_API;
-        post(url, share);
-    }
-
-    @Override
-    public void modifyShare(ShareDTO share) {
-        String url = SHARE_API + "/" + share.getId();
-        put(url, share);
-    }
-
-    @Override
-    public void deleteShare(Long shareId) {
-        String url = SHARE_API + "/" + shareId;
-        delete(url);
+        return get(context, url, ShareDTO.class).map(mapper::shareDTOToShare);
     }
 }

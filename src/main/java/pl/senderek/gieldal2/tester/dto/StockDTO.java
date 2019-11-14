@@ -1,7 +1,6 @@
 package pl.senderek.gieldal2.tester.dto;
 
 public class StockDTO {
-
     private Long Id;
     private String name;
     private String abbreviation;

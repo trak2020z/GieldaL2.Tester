@@ -7,8 +7,6 @@ plugins {
 group 'GieldaL2Tester'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
-
 repositories {
     mavenCentral()
 }
@@ -27,4 +25,6 @@ dependencies {
     
     compile 'com.microsoft.sqlserver:mssql-jdbc'
     compile 'org.mapstruct:mapstruct-jdk8:1.3.0.Final'
+    compile 'org.mapstruct:mapstruct-processor:1.3.0.Final'
+
 }

@@ -41,8 +41,20 @@ public class GieldaL2Tester implements CommandLineRunner {
         log.setRespType("RTYPE");
         log.setTestType("TTYPE");
         log.setTestStartTime(new Date());
+        long insertStart = System.currentTimeMillis();
         generatorLogService.save(log);
+        long insertTime = System.currentTimeMillis() - insertStart;
+
+        long selectStart = System.currentTimeMillis();
         List<GeneratorLog> logs = generatorLogService.findAll();
-        System.out.println(dateFormat.format(new Date()) + "  Test complete! Inserted 1 log, retrieved " + logs.size() + " logs.");
+        long selectTime = System.currentTimeMillis() - selectStart;
+
+        System.out.println(dateFormat.format(new Date()) + "  Test complete! Inserted 1 log in " + insertTime + "ms, retrieved " + logs.size() + " logs in " + selectTime + "ms.");
+        for (int i = 1; i <= 10; i++) {
+            selectStart = System.currentTimeMillis();
+            List<GeneratorLog> logs2 = generatorLogService.findAll();
+            selectTime = System.currentTimeMillis() - selectStart;
+            System.out.println(dateFormat.format(new Date()) + "  Select test #" + i + " complete! Retrieved " + logs2.size() + " logs in " + selectTime + "ms.");
+        }
     }
 }

@@ -1,5 +1,6 @@
 package pl.senderek.gieldal2.tester.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class User {
@@ -10,9 +11,9 @@ public class User {
     private String password;
     private String mail;
     private Double value;
-    private List<Share> shares;
-    private List<SellOffer> sellOffers;
-    private List<BuyOffer> buyOffers;
+    private List<Share> shares = new LinkedList<>();
+    private List<SellOffer> sellOffers = new LinkedList<>();
+    private List<BuyOffer> buyOffers = new LinkedList<>();
 
     public Long getId() {
         return id;
