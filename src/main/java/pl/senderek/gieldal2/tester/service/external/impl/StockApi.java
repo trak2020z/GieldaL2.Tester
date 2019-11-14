@@ -19,15 +19,20 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class StockApi {
-    @Autowired
-    protected static GeneratorLogRepository repository;
+
+    private GeneratorLogRepository repository;
     static final String BASE_STOCK_API = TestConfig.API_URL;
     private static final RestTemplate restTemplate = new RestTemplate();
+
+    @Autowired
+    private void setRepository(GeneratorLogRepository repository) {
+        this.repository = repository;
+    }
 
     <T> List<T> getList(TestContext context, String url, Class<T> responseType) {
         context.nextRequest();
         long start = System.currentTimeMillis();
-        ResponseEntity<StockApiEntity<List<T>>> response = getForEntityList(url, responseType);
+        ResponseEntity<StockApiEntity<List<T>>> response = getList(url);
         int requestTime = (int) (System.currentTimeMillis() - start);
         if (response.getStatusCode().equals(HttpStatus.OK)) {
             StockApiEntity<List<T>> body = response.getBody();
@@ -43,7 +48,7 @@ public abstract class StockApi {
     <T> Optional<T> get(TestContext context, String url, Class<T> responseType) {
         context.nextRequest();
         long start = System.currentTimeMillis();
-        ResponseEntity<StockApiEntity<T>> response = getForEntity(url, responseType);
+        ResponseEntity<StockApiEntity<T>> response = get(url);
         int requestTime = (int) (System.currentTimeMillis() - start);
         if (response.getStatusCode().equals(HttpStatus.OK)) {
             StockApiEntity<T> body = response.getBody();
@@ -56,7 +61,7 @@ public abstract class StockApi {
         return Optional.empty();
     }
 
-    <T, U> void post(TestContext context, String url, U request) {
+    <T> void post(TestContext context, String url, T request) {
         context.nextRequest();
         long start = System.currentTimeMillis();
         ResponseEntity<StockApiResponse> response = post(url, request);
@@ -64,7 +69,7 @@ public abstract class StockApi {
         saveLog(context, response, request.getClass().getSimpleName(), requestTime);
     }
 
-    <T, U> void put(TestContext context, String url, U request) {
+    <T> void put(TestContext context, String url, T request) {
         context.nextRequest();
         long start = System.currentTimeMillis();
         ResponseEntity<StockApiResponse> response = put(url, request);
@@ -72,7 +77,7 @@ public abstract class StockApi {
         saveLog(context, response, request.getClass().getSimpleName(), requestTime);
     }
 
-    <T> void delete(TestContext context, String url) {
+    void delete(TestContext context, String url) {
         context.nextRequest();
         long start = System.currentTimeMillis();
         ResponseEntity<StockApiResponse> response = delete(url);
@@ -90,12 +95,12 @@ public abstract class StockApi {
         }
     }
 
-    private <T> ResponseEntity<StockApiEntity<List<T>>> getForEntityList(String url, Class<T> responseType) {
+    private <T> ResponseEntity<StockApiEntity<List<T>>> getList(String url) {
         return restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<StockApiEntity<List<T>>>() {
         });
     }
 
-    private <T> ResponseEntity<StockApiEntity<T>> getForEntity(String url, Class<T> responseType) {
+    private <T> ResponseEntity<StockApiEntity<T>> get(String url) {
         return restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<StockApiEntity<T>>() {
         });
     }
@@ -110,7 +115,7 @@ public abstract class StockApi {
         return restTemplate.exchange(url, HttpMethod.PUT, requestEntity, StockApiResponse.class);
     }
 
-    private <T> ResponseEntity<StockApiResponse> delete(String url) {
+    private ResponseEntity<StockApiResponse> delete(String url) {
         return restTemplate.exchange(url, HttpMethod.DELETE, null, StockApiResponse.class);
     }
 }
