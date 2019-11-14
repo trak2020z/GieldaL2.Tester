@@ -2,18 +2,16 @@ package pl.senderek.gieldal2.tester.service.external.impl;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.senderek.gieldal2.tester.dto.ShareDTO;
 import pl.senderek.gieldal2.tester.dto.UserDTO;
-import pl.senderek.gieldal2.tester.service.external.BenchmarkService;
 import pl.senderek.gieldal2.tester.service.external.UserService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl extends BenchmarkService implements UserService {
+public class UserServiceImpl extends StockApi implements UserService {
 
-    private static String USER_API = STOCK_API + "/api/Users";
+    private static String USER_API = BASE_STOCK_API + "/api/Users";
 
     @Override
     public List<UserDTO> getAllUsers() {
@@ -44,11 +42,5 @@ public class UserServiceImpl extends BenchmarkService implements UserService {
     public void deleteUser(Long userId) {
         String url = USER_API + "/" + userId;
         delete(url);
-    }
-
-    @Override
-    public List<ShareDTO> getUserShares(Long userId){
-        String url = USER_API + "/" + userId + "/shares";
-        return getForEntityList(url, ShareDTO.class).getBody();
     }
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class SellOffer {
 
     private Long id;
+    private User seller;
     private Share share;
     private Integer amount;
     private Double price;
@@ -13,6 +14,14 @@ public class SellOffer {
     public Share getShare() { return share; }
 
     public void setShare(Share share) { this.share = share; }
+
+    public User getSeller() {
+        return seller;
+    }
+
+    public void setSeller(User seller) {
+        this.seller = seller;
+    }
 
     public Double getPrice() { return price; }
 

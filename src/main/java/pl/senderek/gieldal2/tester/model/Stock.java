@@ -7,6 +7,7 @@ public class Stock {
     private String name;
     private String abbreviation;
     private Double currentPrice;
+    private Double priceDelta;
     private List<Share> Shares;
 
     public Long getId() {
@@ -39,6 +40,14 @@ public class Stock {
 
     public void setCurrentPrice(Double currentPrice) {
         this.currentPrice = currentPrice;
+    }
+
+    public Double getPriceDelta() {
+        return priceDelta;
+    }
+
+    public void setPriceDelta(Double priceDelta) {
+        this.priceDelta = priceDelta;
     }
 
     public List<Share> getShares() {

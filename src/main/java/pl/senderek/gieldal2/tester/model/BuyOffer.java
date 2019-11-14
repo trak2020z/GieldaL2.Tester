@@ -5,16 +5,16 @@ import java.time.LocalDateTime;
 public class BuyOffer {
 
     private Long id;
-    private User seller;
+    private User buyer;
     private Stock stock;
     private Integer amount;
     private Double price;
     private LocalDateTime date;
 
 
-    public User getSeller() { return seller; }
+    public User getBuyer() { return buyer; }
 
-    public void setSeller(User seller) { this.seller = seller; }
+    public void setBuyer(User buyer) { this.buyer = buyer; }
 
     public Stock getStock() { return stock; }
 

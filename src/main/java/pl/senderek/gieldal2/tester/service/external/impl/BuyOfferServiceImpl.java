@@ -3,16 +3,15 @@ package pl.senderek.gieldal2.tester.service.external.impl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.senderek.gieldal2.tester.dto.BuyOfferDTO;
-import pl.senderek.gieldal2.tester.service.external.BenchmarkService;
 import pl.senderek.gieldal2.tester.service.external.BuyOfferService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BuyOfferServiceImpl extends BenchmarkService implements BuyOfferService {
+public class BuyOfferServiceImpl extends StockApi implements BuyOfferService {
 
-    private static String BUY_OFFER_API = STOCK_API + "/api/Offers/Buy";
+    private String BUY_OFFER_API = BASE_STOCK_API + "/api/Offers/buy";
 
     @Override
     public List<BuyOfferDTO> getAllBuyOffers(){
@@ -33,7 +32,7 @@ public class BuyOfferServiceImpl extends BenchmarkService implements BuyOfferSer
     }
     @Override
     public void deleteBuyOffer(Long buyOfferId){
-        String url = STOCK_API + "/" + buyOfferId;
+        String url = BUY_OFFER_API + "/" + buyOfferId;
         delete(url);
     }
 }

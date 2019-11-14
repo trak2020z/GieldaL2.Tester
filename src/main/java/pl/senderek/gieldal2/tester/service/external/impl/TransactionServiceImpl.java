@@ -2,15 +2,14 @@ package pl.senderek.gieldal2.tester.service.external.impl;
 
 import org.springframework.http.ResponseEntity;
 import pl.senderek.gieldal2.tester.dto.TransactionDTO;
-import pl.senderek.gieldal2.tester.service.external.BenchmarkService;
 import pl.senderek.gieldal2.tester.service.external.TransactionService;
 
 import java.util.List;
 import java.util.Optional;
 
-public class TransactionServiceImpl extends BenchmarkService implements TransactionService {
+public class TransactionServiceImpl extends StockApi implements TransactionService {
 
-    private static String TRANSACTION_API = STOCK_API + "/Transactions";
+    private static String TRANSACTION_API = BASE_STOCK_API + "api/Transactions";
 
     @Override
     public List<TransactionDTO> getAllTransactions(){
@@ -30,7 +29,7 @@ public class TransactionServiceImpl extends BenchmarkService implements Transact
     }
     @Override
     public void deleteTransaction(Long transactionId){
-        String url = STOCK_API + "/" + transactionId;
+        String url = TRANSACTION_API + "/" + transactionId;
         delete(url);
     }
 }

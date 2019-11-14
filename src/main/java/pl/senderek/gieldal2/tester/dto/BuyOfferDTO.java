@@ -4,15 +4,15 @@ import java.time.LocalDateTime;
 
 public class BuyOfferDTO {
     private Long id;
-    private Long sellerId;
+    private Long userId;
     private Long stockId;
     private Integer amount;
     private Double price;
     private LocalDateTime date;
 
-    public Long getSellerId() { return sellerId; }
+    public Long getUserId() { return userId; }
 
-    public void setSellerId(Long sellerId) { this.sellerId = sellerId; }
+    public void setUserId(Long userId) { this.userId = userId; }
 
     public Long getId() { return id; }
 

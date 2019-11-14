@@ -6,6 +6,7 @@ public class StockDTO {
     private String name;
     private String abbreviation;
     private Double currentPrice;
+    private Double priceDelta;
 
     public Long getId() {
         return Id;
@@ -39,4 +40,11 @@ public class StockDTO {
         this.currentPrice = currentPrice;
     }
 
+    public Double getPriceDelta() {
+        return priceDelta;
+    }
+
+    public void setPriceDelta(Double priceDelta) {
+        this.priceDelta = priceDelta;
+    }
 }
