@@ -48,8 +48,8 @@ public class UserServiceImpl extends StockApi implements UserService {
         if (response.isPresent()) {
             User user = response.get();
             List<Share> shares = shareService.getUserShares(context, user);
-            List<BuyOffer> buyOffers = null; //TODO: dodać metodę z buyOfferService, gdy będzie gotowa
-            List<SellOffer> sellOffers = null; //TODO: dodać metodę z sellOfferService, gdy będzie gotowa
+            List<BuyOffer> buyOffers = buyOfferService.getUserBuyOffers(context, user);
+            List<SellOffer> sellOffers = sellOfferService.getUserSellOffers(context, user);
             user.setShares(shares);
             user.setBuyOffers(buyOffers);
             user.setSellOffers(sellOffers);
