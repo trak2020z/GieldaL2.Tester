@@ -1,6 +1,7 @@
 package pl.senderek.gieldal2.tester.service.external.impl;
 
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.senderek.gieldal2.tester.dto.StockDTO;
 import pl.senderek.gieldal2.tester.model.Stock;
@@ -14,11 +15,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class StockServiceImpl extends StockApi implements StockService {
+public class StockServiceImpl extends StockApiImpl implements StockService {
 
-    private static final String STOCK_API = BASE_STOCK_API + "/api/Stocks";
+    @Value("${test.API_URL}/api/Stocks")
+    private String STOCK_API;
+
     private final StockMapper mapper = Mappers.getMapper(StockMapper.class);
-
 
     @Override
     public List<Stock> getAllStocks(TestContext context) {
@@ -28,7 +30,7 @@ public class StockServiceImpl extends StockApi implements StockService {
 
     @Override
     public Optional<Stock> getStock(TestContext context, Long stockId) {
-        String url = STOCK_API +  "/" + stockId;
+        String url = STOCK_API + "/" + stockId;
         return get(context, url, StockDTO.class).map(mapper::stockDTOToStock);
     }
 

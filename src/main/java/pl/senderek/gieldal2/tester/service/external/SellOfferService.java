@@ -8,7 +8,7 @@ import pl.senderek.gieldal2.tester.model.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface SellOfferService {
+public interface SellOfferService extends StockApi {
     List<SellOffer> getAllSellOffers(TestContext context);
 
     List<SellOffer> getUserSellOffers(TestContext context, User user);

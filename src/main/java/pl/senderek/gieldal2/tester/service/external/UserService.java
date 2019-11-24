@@ -6,7 +6,7 @@ import pl.senderek.gieldal2.tester.model.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserService {
+public interface UserService extends StockApi {
     List<User> getAllUsers(TestContext context);
 
     Optional<User> getUser(TestContext context, Long userId);

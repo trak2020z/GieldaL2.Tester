@@ -58,15 +58,27 @@ public class GeneratorLog implements Serializable {
     @Column(name = "db_updates_time")
     private Integer dbUpdatesTime;
 
+    @Column(name = "db_inserts_quantity")
+    private Integer dbInsertsQuantity;
+
+    @Column(name = "db_inserts_time")
+    private Integer dbInsertsTime;
+
+    @Column(name = "db_deletes_quantity")
+    private Integer dbDeletesQuantity;
+
+    @Column(name = "db_deletes_time")
+    private Integer dbDeletesTime;
+
     public GeneratorLog() {
 
     }
 
-    public GeneratorLog(TestContext context, String reqType, String respType, Integer reqTime, StockApiResponse response) {
+    public GeneratorLog(TestContext context, Integer activeClientsQuantity, String testType, String reqType, String respType, Integer reqTime, StockApiResponse response) {
         this.clientId = context.getClientId();
-        this.activeClientsQuantity = context.getActiveClientsQuantity();
+        this.activeClientsQuantity = activeClientsQuantity;
         this.testStartTime = context.getTestStartTime();
-        this.testType = context.getTestType();
+        this.testType = testType;
         this.reqNo = context.getReqNo().get();
         this.reqType = reqType;
         this.respType = respType;
@@ -76,6 +88,10 @@ public class GeneratorLog implements Serializable {
         this.dbSelectsTime = response.getSelectsTime();
         this.dbUpdatesQuantity = response.getUpdatesCount();
         this.dbUpdatesTime = response.getUpdatesTime();
+        this.dbInsertsQuantity = response.getInsertsCount();
+        this.dbInsertsTime = response.getInsertsTime();
+        this.dbDeletesQuantity = response.getDeletesCount();
+        this.dbDeletesTime = response.getDeletesTime();
     }
 
     public Long getId() {
@@ -188,5 +204,37 @@ public class GeneratorLog implements Serializable {
 
     public void setDbUpdatesTime(Integer dbUpdatesTime) {
         this.dbUpdatesTime = dbUpdatesTime;
+    }
+
+    public Integer getDbInsertsQuantity() {
+        return dbInsertsQuantity;
+    }
+
+    public void setDbInsertsQuantity(Integer dbInsertsQuantity) {
+        this.dbInsertsQuantity = dbInsertsQuantity;
+    }
+
+    public Integer getDbInsertsTime() {
+        return dbInsertsTime;
+    }
+
+    public void setDbInsertsTime(Integer dbInsertsTime) {
+        this.dbInsertsTime = dbInsertsTime;
+    }
+
+    public Integer getDbDeletesQuantity() {
+        return dbDeletesQuantity;
+    }
+
+    public void setDbDeletesQuantity(Integer dbDeletesQuantity) {
+        this.dbDeletesQuantity = dbDeletesQuantity;
+    }
+
+    public Integer getDbDeletesTime() {
+        return dbDeletesTime;
+    }
+
+    public void setDbDeletesTime(Integer dbDeletesTime) {
+        this.dbDeletesTime = dbDeletesTime;
     }
 }

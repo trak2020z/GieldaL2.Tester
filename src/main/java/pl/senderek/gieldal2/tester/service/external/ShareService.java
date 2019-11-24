@@ -7,7 +7,7 @@ import pl.senderek.gieldal2.tester.model.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface ShareService {
+public interface ShareService extends StockApi {
     List<Share> getAllShares(TestContext context);
 
     List<Share> getUserShares(TestContext context, User user);

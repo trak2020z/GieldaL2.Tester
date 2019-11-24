@@ -1,6 +1,7 @@
 package pl.senderek.gieldal2.tester.service.external.impl;
 
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.senderek.gieldal2.tester.dto.UserDTO;
 import pl.senderek.gieldal2.tester.model.*;
@@ -15,11 +16,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl extends StockApi implements UserService {
+public class UserServiceImpl extends StockApiImpl implements UserService {
 
-    private static final String USER_API = BASE_STOCK_API + "/api/Users";
+    @Value("${test.API_URL}/api/Users")
+    private String USER_API;
 
     private final UserMapper mapper = Mappers.getMapper(UserMapper.class);
+
     private final ShareService shareService;
     private final BuyOfferService buyOfferService;
     private final SellOfferService sellOfferService;

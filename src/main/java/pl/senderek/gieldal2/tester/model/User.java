@@ -9,7 +9,7 @@ public class User {
     private String surname;
     private String login;
     private String password;
-    private String mail;
+    private String eMail;
     private Double value;
     private List<Share> shares = new LinkedList<>();
     private List<SellOffer> sellOffers = new LinkedList<>();
@@ -55,12 +55,12 @@ public class User {
         this.password = password;
     }
 
-    public String getMail() {
-        return mail;
+    public String geteMail() {
+        return eMail;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
     }
 
     public Double getValue() {
