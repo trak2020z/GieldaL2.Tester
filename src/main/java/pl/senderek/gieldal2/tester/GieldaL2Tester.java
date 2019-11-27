@@ -74,19 +74,19 @@ public class GieldaL2Tester implements CommandLineRunner {
         User authUser = new User();
         authUser.setLogin("admin");
         authUser.setPassword("admin");
-        userService.authenticateUser(authUser);
-        List<User> userList = userService.getAllUsers(context);
-        Optional<User> optionalUser = userService.getUser(context, 1L);
-        if(optionalUser.isPresent()) {
+        String token = userService.authenticateUser(authUser);
+        List<User> userList = userService.getAllUsers(context, token);
+        Optional<User> optionalUser = userService.getUser(context, 1L, token);
+        if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            if(user.getName().equals("admin"))
+            if (user.getName().equals("admin"))
                 user.setName("ADMIN");
             else
                 user.setName("admin");
             user.setPassword("admin");
-            userService.modifyUser(context, user);
+            userService.modifyUser(context, user, token);
         }
-        Optional<User> changedUser = userService.getUser(context, 1L);
+        Optional<User> changedUser = userService.getUser(context, 1L, token);
         System.out.println("TEST DONE");
     }
 }

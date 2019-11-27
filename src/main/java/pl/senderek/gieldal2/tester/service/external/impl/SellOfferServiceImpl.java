@@ -29,9 +29,9 @@ public class SellOfferServiceImpl extends StockApiImpl implements SellOfferServi
     private final SellOfferMapper mapper = Mappers.getMapper(SellOfferMapper.class);
 
     @Override
-    public List<SellOffer> getAllSellOffers(TestContext context) {
+    public List<SellOffer> getAllSellOffers(TestContext context, String token) {
         String url = SELL_OFFER_API;
-        return getList(context, url, SellOfferDTO.class).stream().map(mapper::sellOfferDTOToSellOffer).collect(Collectors.toList());
+        return getList(context, url, SellOfferDTO.class, token).stream().map(mapper::sellOfferDTOToSellOffer).collect(Collectors.toList());
     }
 
     @Override
@@ -52,20 +52,20 @@ public class SellOfferServiceImpl extends StockApiImpl implements SellOfferServi
     }
 
     @Override
-    public void createSellOffer(TestContext context, SellOffer sellOffer) {
+    public void createSellOffer(TestContext context, SellOffer sellOffer, String token) {
         String url = SELL_OFFER_API;
-        post(context, url, sellOffer);
+        post(context, url, sellOffer, token);
     }
 
     @Override
-    public Optional<SellOffer> getSellOffer(TestContext context, Long sellOfferId) {
+    public Optional<SellOffer> getSellOffer(TestContext context, Long sellOfferId, String token) {
         String url = SELL_OFFER_API + "/" + sellOfferId;
-        return get(context, url, SellOfferDTO.class).map(mapper::sellOfferDTOToSellOffer);
+        return get(context, url, SellOfferDTO.class, token).map(mapper::sellOfferDTOToSellOffer);
     }
 
     @Override
-    public void deleteSellOffer(TestContext context, Long sellOfferId) {
+    public void deleteSellOffer(TestContext context, Long sellOfferId, String token) {
         String url = SELL_OFFER_API + "/" + sellOfferId;
-        delete(context, url);
+        delete(context, url, token);
     }
 }

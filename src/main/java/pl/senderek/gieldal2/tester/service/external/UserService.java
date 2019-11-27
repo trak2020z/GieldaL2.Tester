@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService extends StockApi {
-    List<User> getAllUsers(TestContext context);
+    List<User> getAllUsers(TestContext context, String token);
 
-    Optional<User> getUser(TestContext context, Long userId);
+    Optional<User> getUser(TestContext context, Long userId, String token);
 
-    Optional<User> getUserWithSharesAndOffers(TestContext context, Long userId);
+    Optional<User> getUserWithSharesAndOffers(TestContext context, Long userId, String token);
 
-    void createUser(TestContext context, User user);
+    void createUser(TestContext context, User user, String token);
 
-    void modifyUser(TestContext context, User user);
+    void modifyUser(TestContext context, User user, String token);
 
-    void deleteUser(TestContext context, Long userId);
+    void deleteUser(TestContext context, Long userId, String token);
 }

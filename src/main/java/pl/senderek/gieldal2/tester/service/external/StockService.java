@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StockService extends StockApi {
-    List<Stock> getAllStocks(TestContext context);
+    List<Stock> getAllStocks(TestContext context, String token);
 
-    Optional<Stock> getStock(TestContext context, Long stockId);
+    Optional<Stock> getStock(TestContext context, Long stockId, String token);
 }

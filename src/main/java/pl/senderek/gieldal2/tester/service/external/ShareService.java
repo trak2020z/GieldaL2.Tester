@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ShareService extends StockApi {
-    List<Share> getAllShares(TestContext context);
+    List<Share> getAllShares(TestContext context, String token);
 
-    List<Share> getUserShares(TestContext context, User user);
+    List<Share> getUserShares(TestContext context, User user, String token);
 
-    Optional<Share> getShare(TestContext context, Long shareId);
+    Optional<Share> getShare(TestContext context, Long shareId, String token);
 }

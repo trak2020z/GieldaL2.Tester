@@ -34,8 +34,6 @@ public abstract class StockApiImpl {
     private ObjectMapper objectMapper;
     private GeneratorLogRepository repository;
 
-    private static String token;
-
     @Autowired
     private void setRepository(GeneratorLogRepository repository) {
         this.repository = repository;
@@ -51,10 +49,10 @@ public abstract class StockApiImpl {
         this.restTemplate = restTemplate;
     }
 
-    <T> List<T> getList(TestContext context, String url, Class<T> responseType) {
+    <T> List<T> getList(TestContext context, String url, Class<T> responseType, String token) {
         context.nextRequest();
         long start = System.currentTimeMillis();
-        ResponseEntity<StockApiEntity<List<T>>> response = getList(url);
+        ResponseEntity<StockApiEntity<List<T>>> response = getList(url, token);
         int requestTime = (int) (System.currentTimeMillis() - start);
         if (response.getStatusCode().equals(HttpStatus.OK)) {
             StockApiEntity<List<T>> body = response.getBody();
@@ -68,10 +66,10 @@ public abstract class StockApiImpl {
         return new LinkedList<>();
     }
 
-    <T> Optional<T> get(TestContext context, String url, Class<T> responseType) {
+    <T> Optional<T> get(TestContext context, String url, Class<T> responseType, String token) {
         context.nextRequest();
         long start = System.currentTimeMillis();
-        ResponseEntity<StockApiEntity<T>> response = get(url);
+        ResponseEntity<StockApiEntity<T>> response = get(url, token);
         int requestTime = (int) (System.currentTimeMillis() - start);
         if (response.getStatusCode().equals(HttpStatus.OK)) {
             StockApiEntity<T> body = response.getBody();
@@ -85,26 +83,26 @@ public abstract class StockApiImpl {
         return Optional.empty();
     }
 
-    <T> void post(TestContext context, String url, T request) {
+    <T> void post(TestContext context, String url, T request, String token) {
         context.nextRequest();
         long start = System.currentTimeMillis();
-        ResponseEntity<StockApiResponse> response = post(url, request);
+        ResponseEntity<StockApiResponse> response = post(url, request, token);
         int requestTime = (int) (System.currentTimeMillis() - start);
         saveLog(context, response, "POST", requestTime);
     }
 
-    <T> void put(TestContext context, String url, T request) {
+    <T> void put(TestContext context, String url, T request, String token) {
         context.nextRequest();
         long start = System.currentTimeMillis();
-        ResponseEntity<StockApiResponse> response = put(url, request);
+        ResponseEntity<StockApiResponse> response = put(url, request, token);
         int requestTime = (int) (System.currentTimeMillis() - start);
         saveLog(context, response, "PUT", requestTime);
     }
 
-    void delete(TestContext context, String url) {
+    void delete(TestContext context, String url, String token) {
         context.nextRequest();
         long start = System.currentTimeMillis();
-        ResponseEntity<StockApiResponse> response = delete(url);
+        ResponseEntity<StockApiResponse> response = delete(url, token);
         int requestTime = (int) (System.currentTimeMillis() - start);
         saveLog(context, response, "DELETE", requestTime);
     }
@@ -119,7 +117,7 @@ public abstract class StockApiImpl {
         }
     }
 
-    private <T> ResponseEntity<StockApiEntity<List<T>>> getList(String url) {
+    private <T> ResponseEntity<StockApiEntity<List<T>>> getList(String url, String token) {
         if (token == null)
             throw new ServiceUnauthorizedException();
         HttpHeaders headers = new HttpHeaders();
@@ -129,7 +127,7 @@ public abstract class StockApiImpl {
         });
     }
 
-    private <T> ResponseEntity<StockApiEntity<T>> get(String url) {
+    private <T> ResponseEntity<StockApiEntity<T>> get(String url, String token) {
         if (token == null)
             throw new ServiceUnauthorizedException();
         HttpHeaders headers = new HttpHeaders();
@@ -139,7 +137,7 @@ public abstract class StockApiImpl {
         });
     }
 
-    private <T> ResponseEntity<StockApiResponse> post(String url, T request) {
+    private <T> ResponseEntity<StockApiResponse> post(String url, T request, String token) {
         if (token == null)
             throw new ServiceUnauthorizedException();
         HttpHeaders headers = new HttpHeaders();
@@ -148,7 +146,7 @@ public abstract class StockApiImpl {
         return restTemplate.exchange(url, HttpMethod.POST, requestEntity, StockApiResponse.class);
     }
 
-    private <T> ResponseEntity<StockApiResponse> put(String url, T request) {
+    private <T> ResponseEntity<StockApiResponse> put(String url, T request, String token) {
         if (token == null)
             throw new ServiceUnauthorizedException();
         HttpHeaders headers = new HttpHeaders();
@@ -157,7 +155,7 @@ public abstract class StockApiImpl {
         return restTemplate.exchange(url, HttpMethod.PUT, requestEntity, StockApiResponse.class);
     }
 
-    private ResponseEntity<StockApiResponse> delete(String url) {
+    private ResponseEntity<StockApiResponse> delete(String url, String token) {
         if (token == null)
             throw new ServiceUnauthorizedException();
         HttpHeaders headers = new HttpHeaders();
@@ -171,13 +169,13 @@ public abstract class StockApiImpl {
         return restTemplate.exchange(AUTH_API, HttpMethod.POST, requestEntity, AuthDTO.class);
     }
 
-    public void authenticateUser(User user) {
+    public String authenticateUser(User user) {
         AuthDTO authRequest = new AuthDTO();
         authRequest.setUserName(user.getLogin());
         authRequest.setPassword(user.getPassword());
         AuthDTO authResponse = postForAuthorization(authRequest).getBody();
         if (authResponse != null && authResponse.getSuccess())
-            token = authResponse.getToken();
+            return authResponse.getToken();
         else
             throw new InvalidCredentialsException(authRequest);
     }

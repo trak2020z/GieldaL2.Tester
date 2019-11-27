@@ -34,23 +34,23 @@ public class UserServiceImpl extends StockApiImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers(TestContext context) {
+    public List<User> getAllUsers(TestContext context, String token) {
         String url = USER_API;
-        return getList(context, url, UserDTO.class).stream().map(mapper::userDTOToUser).collect(Collectors.toList());
+        return getList(context, url, UserDTO.class, token).stream().map(mapper::userDTOToUser).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<User> getUser(TestContext context, Long userId) {
+    public Optional<User> getUser(TestContext context, Long userId, String token) {
         String url = USER_API + "/" + userId;
-        return get(context, url, UserDTO.class).map(mapper::userDTOToUser);
+        return get(context, url, UserDTO.class, token).map(mapper::userDTOToUser);
     }
 
     @Override
-    public Optional<User> getUserWithSharesAndOffers(TestContext context, Long userId) {
-        Optional<User> response = getUser(context, userId);
+    public Optional<User> getUserWithSharesAndOffers(TestContext context, Long userId, String token) {
+        Optional<User> response = getUser(context, userId, token);
         if (response.isPresent()) {
             User user = response.get();
-            List<Share> shares = shareService.getUserShares(context, user);
+            List<Share> shares = shareService.getUserShares(context, user, token);
             List<BuyOffer> buyOffers = buyOfferService.getUserBuyOffers(context, user);
             List<SellOffer> sellOffers = sellOfferService.getUserSellOffers(context, user);
             user.setShares(shares);
@@ -63,22 +63,22 @@ public class UserServiceImpl extends StockApiImpl implements UserService {
 
 
     @Override
-    public void createUser(TestContext context, User user) {
+    public void createUser(TestContext context, User user, String token) {
         String url = USER_API;
         UserDTO request = mapper.userToUserDTO(user);
-        post(context, url, request);
+        post(context, url, request, token);
     }
 
     @Override
-    public void modifyUser(TestContext context, User user) {
+    public void modifyUser(TestContext context, User user, String token) {
         String url = USER_API + "/" + user.getId();
         UserDTO request = mapper.userToUserDTO(user);
-        put(context, url, request);
+        put(context, url, request, token);
     }
 
     @Override
-    public void deleteUser(TestContext context, Long userId) {
+    public void deleteUser(TestContext context, Long userId, String token) {
         String url = USER_API + "/" + userId;
-        delete(context, url);
+        delete(context, url, token);
     }
 }

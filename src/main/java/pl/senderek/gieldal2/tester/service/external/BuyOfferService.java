@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BuyOfferService extends StockApi {
-    List<BuyOffer> getAllBuyOffers(TestContext context);
+    List<BuyOffer> getAllBuyOffers(TestContext context, String token);
 
     List<BuyOffer> getUserBuyOffers(TestContext context, User user);
 
     List<BuyOffer> getStockBuyOffers(TestContext context, Stock stock);
 
-    void createBuyOffer(TestContext context, BuyOffer buyOffer);
+    void createBuyOffer(TestContext context, BuyOffer buyOffer, String token);
 
-    Optional<BuyOffer> getBuyOffer(TestContext context, Long buyOfferId);
+    Optional<BuyOffer> getBuyOffer(TestContext context, Long buyOfferId, String token);
 
-    void deleteBuyOffer(TestContext context, Long buyOfferId);
+    void deleteBuyOffer(TestContext context, Long buyOfferId, String token);
 }

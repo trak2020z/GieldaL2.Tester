@@ -9,7 +9,6 @@ import pl.senderek.gieldal2.tester.model.TestContext;
 import pl.senderek.gieldal2.tester.service.external.StockService;
 import pl.senderek.gieldal2.tester.service.external.mapper.StockMapper;
 
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,15 +22,15 @@ public class StockServiceImpl extends StockApiImpl implements StockService {
     private final StockMapper mapper = Mappers.getMapper(StockMapper.class);
 
     @Override
-    public List<Stock> getAllStocks(TestContext context) {
+    public List<Stock> getAllStocks(TestContext context, String token) {
         String url = STOCK_API;
-        return getList(context, url, StockDTO.class).stream().map(mapper::stockDTOToStock).collect(Collectors.toList());
+        return getList(context, url, StockDTO.class, token).stream().map(mapper::stockDTOToStock).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Stock> getStock(TestContext context, Long stockId) {
+    public Optional<Stock> getStock(TestContext context, Long stockId, String token) {
         String url = STOCK_API + "/" + stockId;
-        return get(context, url, StockDTO.class).map(mapper::stockDTOToStock);
+        return get(context, url, StockDTO.class, token).map(mapper::stockDTOToStock);
     }
 
 }
