@@ -4,4 +4,6 @@ import pl.senderek.gieldal2.tester.model.User;
 
 public interface StockApi {
     String authenticateUser(User user);
+
+    User getUserContext(String token);
 }

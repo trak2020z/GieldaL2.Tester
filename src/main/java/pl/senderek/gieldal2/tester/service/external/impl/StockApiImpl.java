@@ -9,6 +9,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import pl.senderek.gieldal2.tester.dto.AuthDTO;
+import pl.senderek.gieldal2.tester.dto.ContextDTO;
 import pl.senderek.gieldal2.tester.dto.StockApiEntity;
 import pl.senderek.gieldal2.tester.dto.StockApiResponse;
 import pl.senderek.gieldal2.tester.exception.InvalidCredentialsException;
@@ -29,6 +30,8 @@ public abstract class StockApiImpl {
     public String CLIENTS_QUANTITY;
     @Value("${test.API_URL}/api/Auth")
     private String AUTH_API;
+    @Value("${test.API_URL}/api/Context")
+    private String CONTEXT_API;
 
     private RestTemplate restTemplate;
     private ObjectMapper objectMapper;
@@ -178,5 +181,24 @@ public abstract class StockApiImpl {
             return authResponse.getToken();
         else
             throw new InvalidCredentialsException(authRequest);
+    }
+
+    public User getUserContext(String token) {
+        ResponseEntity<StockApiEntity<ContextDTO>> response = get(CONTEXT_API, token);
+        if (response.getStatusCode().equals(HttpStatus.OK)) {
+            StockApiEntity<ContextDTO> body = response.getBody();
+            if (body != null) {
+                JavaType javaType = objectMapper.getTypeFactory().constructType(ContextDTO.class);
+                ContextDTO context = objectMapper.convertValue(body.getData(), javaType);
+                if (context != null && context.getUser() != null) {
+                    User user = context.getUser();
+                    user.setShares(context.getShares());
+                    user.setBuyOffers(context.getBuyOffers());
+                    user.setSellOffers(context.getSellOffers());
+                    return user;
+                }
+            }
+        }
+        return null;
     }
 }

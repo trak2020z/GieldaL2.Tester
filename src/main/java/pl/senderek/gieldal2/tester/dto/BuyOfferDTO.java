@@ -1,5 +1,7 @@
 package pl.senderek.gieldal2.tester.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 public class BuyOfferDTO {
@@ -8,6 +10,7 @@ public class BuyOfferDTO {
     private Long stockId;
     private Integer amount;
     private Double price;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     private LocalDateTime date;
 
     public Long getUserId() { return userId; }
