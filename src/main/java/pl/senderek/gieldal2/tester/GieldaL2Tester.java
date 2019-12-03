@@ -76,6 +76,10 @@ public class GieldaL2Tester implements CommandLineRunner {
         authUser.setPassword("admin");
         String token = userService.authenticateUser(authUser);
         List<User> userList = userService.getAllUsers(context, token);
+        User nowy = userList.get(1);
+        nowy.setName("kasd");
+        nowy.setId(111L);
+        userService.createUser(context,nowy,token);
         Optional<User> optionalUser = userService.getUser(context, 1L, token);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();

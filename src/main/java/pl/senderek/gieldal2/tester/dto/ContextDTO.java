@@ -6,7 +6,9 @@ import pl.senderek.gieldal2.tester.model.Share;
 import pl.senderek.gieldal2.tester.model.User;
 
 import java.util.List;
-
+/**
+ * Przedstawia użytkownika wraz z jego akcjami, ofertami kupna oraz ofertami sprzedaży
+ */
 public class ContextDTO {
     private User user;
     private List<Share> shares;

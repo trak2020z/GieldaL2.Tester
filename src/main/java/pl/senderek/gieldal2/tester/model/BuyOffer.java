@@ -1,7 +1,9 @@
 package pl.senderek.gieldal2.tester.model;
 
 import java.time.LocalDateTime;
-
+/**
+ * Model oferty kupna wykorzystywany w logice aplikacji
+ */
 public class BuyOffer {
     private Long id;
     private User buyer;

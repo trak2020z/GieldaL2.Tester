@@ -2,7 +2,9 @@ package pl.senderek.gieldal2.tester.model;
 
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * Model użytkownika wykorzystywany w logice aplikacji
+ */
 public class User {
     private Long id;
     private String name;

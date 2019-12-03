@@ -1,5 +1,7 @@
 package pl.senderek.gieldal2.tester.model;
-
+/**
+ * Model akcji wykorzystywany w logice aplikacji
+ */
 public class Stock {
     private Long Id;
     private String name;

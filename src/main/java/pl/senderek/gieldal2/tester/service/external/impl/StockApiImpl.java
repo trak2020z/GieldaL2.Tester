@@ -24,12 +24,24 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class StockApiImpl {
+    /**
+     * Informacja o typie testu pobierana z application.properties
+     */
     @Value("${test.TEST_TYPE}")
     public String TEST_TYPE;
+    /**
+     * Informacja o ilości klientów pobierana z application.properties
+     */
     @Value("${test.CLIENTS_QUANTITY}")
     public String CLIENTS_QUANTITY;
+    /**
+     * Link do autentykacji w API
+     */
     @Value("${test.API_URL}/api/Auth")
     private String AUTH_API;
+    /**
+     * Link do informacji o zalogowanym użytkowniku zwracanych z API
+     */
     @Value("${test.API_URL}/api/Context")
     private String CONTEXT_API;
 
@@ -52,6 +64,16 @@ public abstract class StockApiImpl {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * Generyczna metoda wywołująca żądanie typu GET , za pomocą metody {@link #getList(String, String)}.
+     * Jeśli żądanie wykona się pomyślnie to następuje zapisanie wymaganych informacje w bazie danych przy pomocy metody {@link pl.senderek.gieldal2.tester.repository.GeneratorLogRepository#save(Object)}
+     * @param context Informacja o wykonywanym teście
+     * @param url Adres wywoływanego żądania
+     * @param responseType Typ zwracany przez żadanie z API
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @param <T> Typ zwracanej przez metodę listy
+     * @return Zwraca listę obiektów podanego typu, wyłuskaną ze zwracanego obiektu z API przy pomocy metody {@link StockApiEntity#getData()}
+     */
     <T> List<T> getList(TestContext context, String url, Class<T> responseType, String token) {
         context.nextRequest();
         long start = System.currentTimeMillis();
@@ -68,7 +90,16 @@ public abstract class StockApiImpl {
         }
         return new LinkedList<>();
     }
-
+    /**
+     * Generyczna metoda wywołująca żądanie typu GET za pomocą metody {@link #get(String, String)}.
+     * Jeśli żądanie wykona się pomyślnie to następuje zapisanie wymaganych informacje w bazie danych przy pomocy metody {@link pl.senderek.gieldal2.tester.repository.GeneratorLogRepository#save(Object)}
+     * @param context Informacja o wykonywanym teście
+     * @param url Adres wywoływanego żądania
+     * @param responseType Typ zwracany przez żadanie z API
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @param <T> Typ zwracanego przez metode obiektu
+     * @return Zwraca obiekt podanego typu, wyłuskany z obiektu zwracanego przez API przy pomocy metody {@link StockApiEntity#getData()} lub {@code null} jeśli szukany obiekt nie istnieje
+     */
     <T> Optional<T> get(TestContext context, String url, Class<T> responseType, String token) {
         context.nextRequest();
         long start = System.currentTimeMillis();
@@ -85,7 +116,15 @@ public abstract class StockApiImpl {
         }
         return Optional.empty();
     }
-
+    /**
+     * Generyczna metoda wywołująca żądanie typu POST za pomocą metody {@link #post(String, Object, String)}.
+     * Zapisuje wymagane informacje w bazie danych przy pomocy metody {@link #saveLog(TestContext, ResponseEntity, String, int)}
+     * @param context Informacja o wykonywanym teście
+     * @param url Adres wywoływanego żądania
+     * @param request Obiekt typu {@code <T>} dołączany do żądania
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @param <T> Typ obiektu przekazywanego do metody POST
+     */
     <T> void post(TestContext context, String url, T request, String token) {
         context.nextRequest();
         long start = System.currentTimeMillis();
@@ -93,7 +132,15 @@ public abstract class StockApiImpl {
         int requestTime = (int) (System.currentTimeMillis() - start);
         saveLog(context, response, "POST", requestTime);
     }
-
+    /**
+     * Generyczna metoda wywołująca żądanie typu PUT za pomocą metody {@link #put(String, Object, String)}.
+     * Zapisuje wymagane informacje w bazie danych przy pomocy metody {@link #saveLog(TestContext, ResponseEntity, String, int)}
+     * @param context Informacja o wykonywanym teście
+     * @param url Adres wywoływanego żądania
+     * @param request Obiekt typu {@code <T>} dołączany do żądania
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @param <T> Typ obiektu przekazywanego do metody PUT
+     */
     <T> void put(TestContext context, String url, T request, String token) {
         context.nextRequest();
         long start = System.currentTimeMillis();
@@ -101,7 +148,13 @@ public abstract class StockApiImpl {
         int requestTime = (int) (System.currentTimeMillis() - start);
         saveLog(context, response, "PUT", requestTime);
     }
-
+    /**
+     * Generyczna metoda wywołująca żądanie typu DELETE za pomocą metody {@link #delete(String, String)}.
+     * Zapisuje wymagane informacje w bazie danych przy pomocy metody {@link #saveLog(TestContext, ResponseEntity, String, int)}
+     * @param context Informacja o wykonywanym teście
+     * @param url adres wywoływanego żądania
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     */
     void delete(TestContext context, String url, String token) {
         context.nextRequest();
         long start = System.currentTimeMillis();
@@ -109,6 +162,13 @@ public abstract class StockApiImpl {
         int requestTime = (int) (System.currentTimeMillis() - start);
         saveLog(context, response, "DELETE", requestTime);
     }
+    /**
+     * Zapisuje w bazie danych informacje o wykonanym żądaniu, używana dla żądań nie zwracających informacji w polu {@link pl.senderek.gieldal2.tester.dto.StockApiEntity#data}
+     * @param context Informacja o wykonywanym teście
+     * @param response dane zwrócone z API
+     * @param requestType typ żądania
+     * @param requestTime czas wykonania żądania
+     */
 
     private void saveLog(TestContext context, ResponseEntity<StockApiResponse> response, String requestType, int requestTime) {
         if (response.getStatusCode().equals(HttpStatus.OK)) {
@@ -116,10 +176,17 @@ public abstract class StockApiImpl {
             if (body != null) {
                 GeneratorLog log = new GeneratorLog(context, new Integer(CLIENTS_QUANTITY), TEST_TYPE, requestType, "StockApiResponse", requestTime, body);
                 repository.save(log);
-            }
+        }
         }
     }
 
+    /**
+     * Metoda wywołująca właściwe żądanie GET, gdy w zwróconym z API obiekcie pole {@link pl.senderek.gieldal2.tester.dto.StockApiEntity#data} jest listą obiektów typu {@code <T>}
+     * @param url Adres wywoływanego żądania
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @param <T> Typ listy zwracanej przez API w polu {@link pl.senderek.gieldal2.tester.dto.StockApiEntity#data}
+     * @return Zwraca odpowiedź HTTP złożoną z statusu, nagłówka oraz ciała
+     */
     private <T> ResponseEntity<StockApiEntity<List<T>>> getList(String url, String token) {
         if (token == null)
             throw new ServiceUnauthorizedException();
@@ -129,7 +196,13 @@ public abstract class StockApiImpl {
         return restTemplate.exchange(url, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<StockApiEntity<List<T>>>() {
         });
     }
-
+    /**
+     * Metoda wywołująca właściwe żądanie GET, gdy w zwróconym z API obiekcie pole {@link pl.senderek.gieldal2.tester.dto.StockApiEntity#data} jest obiektem typu {@code <T>}
+     * @param url Adres wywoływanego żądania
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @param <T> Typ zwracany przez API w polu {@link pl.senderek.gieldal2.tester.dto.StockApiEntity#data}
+     * @return Zwraca odpowiedź HTTP złożoną z statusu, nagłówka oraz ciała
+     */
     private <T> ResponseEntity<StockApiEntity<T>> get(String url, String token) {
         if (token == null)
             throw new ServiceUnauthorizedException();
@@ -140,6 +213,14 @@ public abstract class StockApiImpl {
         });
     }
 
+    /**
+     * Metoda wywołująca właściwe żądanie POST
+     * @param url Adres wywoływanego żądania
+     * @param request Obiekt typu {@code <T>} dołączany do żądania POST
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @param <T> Typ obiektu dołączanego do żądania
+     * @return Zwraca odpowiedź HTTP złożoną z statusu, nagłówka oraz ciała
+     */
     private <T> ResponseEntity<StockApiResponse> post(String url, T request, String token) {
         if (token == null)
             throw new ServiceUnauthorizedException();
@@ -163,6 +244,7 @@ public abstract class StockApiImpl {
             throw new ServiceUnauthorizedException();
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
+
         HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
         return restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, StockApiResponse.class);
     }
