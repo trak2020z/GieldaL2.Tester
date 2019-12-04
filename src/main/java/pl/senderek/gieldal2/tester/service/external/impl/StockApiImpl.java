@@ -25,9 +25,9 @@ import java.util.Optional;
 
 public abstract class StockApiImpl {
     @Value("${test.TEST_TYPE}")
-    public String TEST_TYPE;
+    private String TEST_TYPE;
     @Value("${test.CLIENTS_QUANTITY}")
-    public String CLIENTS_QUANTITY;
+    private Integer CLIENTS_QUANTITY;
     @Value("${test.API_URL}/api/Auth")
     private String AUTH_API;
     @Value("${test.API_URL}/api/Context")
@@ -60,7 +60,7 @@ public abstract class StockApiImpl {
         if (response.getStatusCode().equals(HttpStatus.OK)) {
             StockApiEntity<List<T>> body = response.getBody();
             if (body != null) {
-                GeneratorLog log = new GeneratorLog(context, new Integer(CLIENTS_QUANTITY), TEST_TYPE, "GET", responseType.getSimpleName(), requestTime, body);
+                GeneratorLog log = new GeneratorLog(context, CLIENTS_QUANTITY, TEST_TYPE, "GET", responseType.getSimpleName(), requestTime, body);
                 repository.save(log);
                 CollectionType collectionType = objectMapper.getTypeFactory().constructCollectionType(List.class, responseType);
                 return objectMapper.convertValue(body.getData(), collectionType);
@@ -77,7 +77,7 @@ public abstract class StockApiImpl {
         if (response.getStatusCode().equals(HttpStatus.OK)) {
             StockApiEntity<T> body = response.getBody();
             if (body != null) {
-                GeneratorLog log = new GeneratorLog(context, new Integer(CLIENTS_QUANTITY), TEST_TYPE, "GET", responseType.getSimpleName(), requestTime, body);
+                GeneratorLog log = new GeneratorLog(context, CLIENTS_QUANTITY, TEST_TYPE, "GET", responseType.getSimpleName(), requestTime, body);
                 repository.save(log);
                 JavaType javaType = objectMapper.getTypeFactory().constructType(responseType);
                 return Optional.ofNullable(objectMapper.convertValue(body.getData(), javaType));
@@ -114,7 +114,7 @@ public abstract class StockApiImpl {
         if (response.getStatusCode().equals(HttpStatus.OK)) {
             StockApiResponse body = response.getBody();
             if (body != null) {
-                GeneratorLog log = new GeneratorLog(context, new Integer(CLIENTS_QUANTITY), TEST_TYPE, requestType, "StockApiResponse", requestTime, body);
+                GeneratorLog log = new GeneratorLog(context, CLIENTS_QUANTITY, TEST_TYPE, requestType, "StockApiResponse", requestTime, body);
                 repository.save(log);
             }
         }
