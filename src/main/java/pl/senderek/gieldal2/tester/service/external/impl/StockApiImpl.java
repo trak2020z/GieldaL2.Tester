@@ -230,6 +230,14 @@ public abstract class StockApiImpl {
         return restTemplate.exchange(url, HttpMethod.POST, requestEntity, StockApiResponse.class);
     }
 
+    /**
+     * Metoda wywołująca właściwe żądanie PUT
+     * @param url Adres wywoływanego żądania
+     * @param request Obiekt typu {@code <T>} dołączany do żądania PUT
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @param <T> Typ obiektu dołączanego do żądania
+     * @return Zwraca odpowiedź HTTP złożoną z statusu, nagłówka oraz ciała
+     */
     private <T> ResponseEntity<StockApiResponse> put(String url, T request, String token) {
         if (token == null)
             throw new ServiceUnauthorizedException();
@@ -239,6 +247,12 @@ public abstract class StockApiImpl {
         return restTemplate.exchange(url, HttpMethod.PUT, requestEntity, StockApiResponse.class);
     }
 
+    /**
+     * Metoda wywołująca właściwe żądanie DELETE
+     * @param url Adres wywoływanego żądania
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @return Zwraca odpowiedź HTTP złożoną z statusu, nagłówka oraz ciała
+     */
     private ResponseEntity<StockApiResponse> delete(String url, String token) {
         if (token == null)
             throw new ServiceUnauthorizedException();
@@ -249,11 +263,22 @@ public abstract class StockApiImpl {
         return restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, StockApiResponse.class);
     }
 
+    /**
+     * Metoda wywołująca właściwe żądanie POST, służące autoryzacji użytkownika i uzyskania jego tokenu
+     * @param request Obiekt typu {@link pl.senderek.gieldal2.tester.dto.AuthDTO} zawierający nazwę użytkownika i hasło, dołączany do żądania
+     * @return Zwraca odpowiedź HTTP złożoną z statusu, nagłówka oraz ciała. W ciele znajduje się nowy obiekt typu {@link pl.senderek.gieldal2.tester.dto.AuthDTO}
+     * zawierający status oraz token, jeśli autoryzacja przebiegła pomyślnie.
+     */
     private ResponseEntity<AuthDTO> postForAuthorization(AuthDTO request) {
         HttpEntity<AuthDTO> requestEntity = new HttpEntity<>(request);
         return restTemplate.exchange(AUTH_API, HttpMethod.POST, requestEntity, AuthDTO.class);
     }
 
+    /**
+     * Metoda autoryzyjąca użykownika przez wywołanie funkcji {@link #postForAuthorization(AuthDTO)}
+     * @param user Autoryzowany użytkownik
+     * @return Metoda zwraca token użytkownika jeśli jego dane są poprawne. W innym przypadku następuje zgłoszenie wyjątku {@link pl.senderek.gieldal2.tester.exception.InvalidCredentialsException}
+     */
     public String authenticateUser(User user) {
         AuthDTO authRequest = new AuthDTO();
         authRequest.setUserName(user.getLogin());
@@ -265,6 +290,12 @@ public abstract class StockApiImpl {
             throw new InvalidCredentialsException(authRequest);
     }
 
+    /**
+     * Metoda wywołuje żądanie GET na adresie {@link #CONTEXT_API}
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @return Zwraca obiekt typu {@link pl.senderek.gieldal2.tester.model.User} z uzupełnionymi informacjami o ofertach kupna, sprzedaży oraz posiadanych udziałach.
+     * Informacje te uzyskane są przez wywołanie żądania
+     */
     public User getUserContext(String token) {
         ResponseEntity<StockApiEntity<ContextDTO>> response = get(CONTEXT_API, token);
         if (response.getStatusCode().equals(HttpStatus.OK)) {
