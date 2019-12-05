@@ -11,8 +11,6 @@ public interface UserService extends StockApi {
 
     Optional<User> getUser(TestContext context, Long userId, String token);
 
-    Optional<User> getUserWithSharesAndOffers(TestContext context, Long userId, String token);
-
     void createUser(TestContext context, User user, String token);
 
     void modifyUser(TestContext context, User user, String token);

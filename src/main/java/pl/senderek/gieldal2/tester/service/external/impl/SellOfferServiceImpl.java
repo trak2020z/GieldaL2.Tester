@@ -5,13 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.senderek.gieldal2.tester.dto.SellOfferDTO;
 import pl.senderek.gieldal2.tester.model.SellOffer;
-import pl.senderek.gieldal2.tester.model.Stock;
 import pl.senderek.gieldal2.tester.model.TestContext;
-import pl.senderek.gieldal2.tester.model.User;
 import pl.senderek.gieldal2.tester.service.external.SellOfferService;
 import pl.senderek.gieldal2.tester.service.external.mapper.SellOfferMapper;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,23 +29,6 @@ public class SellOfferServiceImpl extends StockApiImpl implements SellOfferServi
     public List<SellOffer> getAllSellOffers(TestContext context, String token) {
         String url = SELL_OFFER_API;
         return getList(context, url, SellOfferDTO.class, token).stream().map(mapper::sellOfferDTOToSellOffer).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<SellOffer> getUserSellOffers(TestContext context, User user) {
-        String url = USER_API + "/" + user.getId() + "/offers/sell";
-        //List<SellOffer> sellOffers = getList(context, url, SellOfferDTO.class).stream().map(mapper::sellOfferDTOToSellOffer).collect(Collectors.toList());
-        //sellOffers.forEach(x -> x.setSeller(user));
-        //return sellOffers;
-        return new LinkedList<>();
-    }
-
-    @Override
-    public List<SellOffer> getStockSellOffers(TestContext context, Stock stock) {
-        String url = STOCK_API + "/" + stock.getId() + "/offers/buy";
-//        List<SellOffer> sellOffers = getList(context, url, SellOfferDTO.class).stream().map(mapper::sellOfferDTOToSellOffer).collect(Collectors.toList());
-//        return sellOffers;
-        return new LinkedList<>();
     }
 
     @Override

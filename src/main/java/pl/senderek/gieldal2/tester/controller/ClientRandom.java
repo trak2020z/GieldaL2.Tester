@@ -5,6 +5,7 @@ import pl.senderek.gieldal2.tester.model.User;
 import pl.senderek.gieldal2.tester.service.external.*;
 
 import java.util.Date;
+import java.util.Iterator;
 
 public class ClientRandom extends Client {
 
@@ -19,24 +20,27 @@ public class ClientRandom extends Client {
 
         while (actionNo < testParams.getMaxNoOfActions()) {
             try {
+                Iterator<Integer> rci = testParams.getRandomChances().iterator();
                 int r = random.nextInt(100);
-                if (r < 35)
+                if (r < rci.next())
                     performBuy();
-                else if (r < 70)
+                else if (r < rci.next())
                     performSell();
-                else if (r < 74)
+                else if (r < rci.next())
                     performBuyOffersCheck();
-                else if (r < 78)
+                else if (r < rci.next())
                     performSellOffersCheck();
-                else if (r < 82)
+                else if (r < rci.next())
                     performSharesCheck();
-                else if (r < 86)
+                else if (r < rci.next())
                     performClientSharesCheck();
-                else if (r < 90)
+                else if (r < rci.next())
                     performStocksCheck();
-                else if (r < 97)
+                else if (r < rci.next())
+                    performUsersCheck();
+                else if (r < rci.next())
                     performProfileCheck();
-                else
+                else if (r < rci.next())
                     performProfileUpdate();
             } catch (Exception e) {
                 System.err.println(context);

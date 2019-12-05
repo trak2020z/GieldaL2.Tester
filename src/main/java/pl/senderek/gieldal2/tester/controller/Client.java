@@ -150,4 +150,8 @@ public abstract class Client extends Thread {
         stockService.getAllStocks(context, token);
     }
 
+    void performUsersCheck() {
+        userService.getAllUsers(context, token);
+    }
+
 }

@@ -1,44 +1,53 @@
 package pl.senderek.gieldal2.tester.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 public class TestParams {
 
-    private Integer maxNoOfActions;
-    private Integer offerSleepTime;
-    private Integer offerMaxNumOfPriceChanges;
-    private Double offerFirstPriceDiff;
-    private Double buyOfferPriceDiff;
-    private Double sellOfferPriceDiff;
+    private final int RANDOM_CHANCES_SIZE = 10;
 
-    public TestParams(Integer maxNoOfActions, Integer offerSleepTime, Integer offerMaxNumOfPriceChanges, Double offerFirstPriceDiff, Double buyOfferPriceDiff, Double sellOfferPriceDiff) {
+    private Integer maxNoOfActions = 10;
+    private Integer offerSleepTime = 5000;
+    private Integer offerMaxNumOfPriceChanges = 5;
+    private Double offerFirstPriceDiff = 0.05;
+    private Double buyOfferPriceDiff = 0.05;
+    private Double sellOfferPriceDiff = 0.05;
+    private List<Integer> randomChances = new ArrayList<>(Arrays.asList(35, 35, 4, 4, 4, 4, 4, 4, 4, 2));
+
+    public TestParams(Integer maxNoOfActions, Integer offerSleepTime, Integer offerMaxNumOfPriceChanges, Double offerFirstPriceDiff,
+                      Double buyOfferPriceDiff, Double sellOfferPriceDiff, List<Integer> randomChances) {
         if (maxNoOfActions != null)
             this.maxNoOfActions = maxNoOfActions;
-        else
-            this.maxNoOfActions = 10;
-
         if (offerSleepTime != null)
             this.offerSleepTime = offerSleepTime;
-        else
-            this.offerSleepTime = 5000;
-
         if (offerMaxNumOfPriceChanges != null)
             this.offerMaxNumOfPriceChanges = offerMaxNumOfPriceChanges;
-        else
-            this.offerMaxNumOfPriceChanges = 5;
-
         if (offerFirstPriceDiff != null)
             this.offerFirstPriceDiff = offerFirstPriceDiff;
-        else
-            this.offerFirstPriceDiff = 0.05;
-
         if (buyOfferPriceDiff != null)
             this.buyOfferPriceDiff = buyOfferPriceDiff;
-        else
-            this.buyOfferPriceDiff = 0.05;
-
         if (sellOfferPriceDiff != null)
             this.sellOfferPriceDiff = sellOfferPriceDiff;
-        else
-            this.sellOfferPriceDiff = 0.05;
+        if (randomChances == null || randomChances.size() != RANDOM_CHANCES_SIZE)
+            this.randomChances = randomChances;
+
+        sumRandomChances();
+    }
+
+    private void sumRandomChances() {
+        int sum = 0;
+        Iterator<Integer> rci = randomChances.iterator();
+        List<Integer> randomChances = new ArrayList<>();
+
+        while (rci.hasNext()) {
+            sum += rci.next();
+            randomChances.add(sum);
+        }
+
+        this.randomChances = randomChances;
     }
 
     public Integer getMaxNoOfActions() {
@@ -63,5 +72,9 @@ public class TestParams {
 
     public Double getSellOfferPriceDiff() {
         return sellOfferPriceDiff;
+    }
+
+    public List<Integer> getRandomChances() {
+        return randomChances;
     }
 }

@@ -4,7 +4,8 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.senderek.gieldal2.tester.dto.UserDTO;
-import pl.senderek.gieldal2.tester.model.*;
+import pl.senderek.gieldal2.tester.model.TestContext;
+import pl.senderek.gieldal2.tester.model.User;
 import pl.senderek.gieldal2.tester.service.external.BuyOfferService;
 import pl.senderek.gieldal2.tester.service.external.SellOfferService;
 import pl.senderek.gieldal2.tester.service.external.ShareService;
@@ -44,23 +45,6 @@ public class UserServiceImpl extends StockApiImpl implements UserService {
         String url = USER_API + "/" + userId;
         return get(context, url, UserDTO.class, token).map(mapper::userDTOToUser);
     }
-
-    @Override
-    public Optional<User> getUserWithSharesAndOffers(TestContext context, Long userId, String token) {
-        Optional<User> response = getUser(context, userId, token);
-        if (response.isPresent()) {
-            User user = response.get();
-            List<Share> shares = shareService.getUserShares(context, user, token);
-            List<BuyOffer> buyOffers = buyOfferService.getUserBuyOffers(context, user);
-            List<SellOffer> sellOffers = sellOfferService.getUserSellOffers(context, user);
-            user.setShares(shares);
-            user.setBuyOffers(buyOffers);
-            user.setSellOffers(sellOffers);
-            return Optional.of(user);
-        } else
-            return Optional.empty();
-    }
-
 
     @Override
     public void createUser(TestContext context, User user, String token) {

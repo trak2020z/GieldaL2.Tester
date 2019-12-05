@@ -11,7 +11,7 @@ import java.util.List;
 public class ClientDecisionTree extends Client {
 
     private enum Action {
-        LOGIN, LOGOUT, BUY, SELL, BUY_OFFERS_CHECK, SELL_OFFERS_CHECK, SHARES_CHECK, CLIENT_SHARES_CHECK, STOCKS_CHECK,
+        LOGIN, LOGOUT, BUY, SELL, BUY_OFFERS_CHECK, SELL_OFFERS_CHECK, SHARES_CHECK, CLIENT_SHARES_CHECK, STOCKS_CHECK, USERS_CHECK,
         PROFILE_CHECK, PROFILE_UPDATE
     }
 
@@ -47,6 +47,7 @@ public class ClientDecisionTree extends Client {
         nextPossibleActions.add(Action.SHARES_CHECK);
         nextPossibleActions.add(Action.CLIENT_SHARES_CHECK);
         nextPossibleActions.add(Action.STOCKS_CHECK);
+        nextPossibleActions.add(Action.USERS_CHECK);
         nextPossibleActions.add(Action.PROFILE_CHECK);
         nextPossibleActions.add(Action.LOGOUT);
 
@@ -62,8 +63,6 @@ public class ClientDecisionTree extends Client {
                 break;
             case PROFILE_CHECK:
                 nextPossibleActions.add(Action.PROFILE_UPDATE);
-                break;
-            case PROFILE_UPDATE:
                 break;
         }
 
@@ -92,6 +91,9 @@ public class ClientDecisionTree extends Client {
                 break;
             case STOCKS_CHECK:
                 performStocksCheck();
+                break;
+            case USERS_CHECK:
+                performUsersCheck();
                 break;
             case PROFILE_CHECK:
                 performProfileCheck();
