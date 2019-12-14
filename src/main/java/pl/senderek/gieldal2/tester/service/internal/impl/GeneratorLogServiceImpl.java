@@ -6,7 +6,9 @@ import pl.senderek.gieldal2.tester.repository.GeneratorLogRepository;
 import pl.senderek.gieldal2.tester.service.internal.GeneratorLogService;
 
 import java.util.List;
-
+/**
+ * Przedstawia implementacje metod działających na bazie danych.
+ */
 @Service
 public class GeneratorLogServiceImpl implements GeneratorLogService {
     private final GeneratorLogRepository logRepository;

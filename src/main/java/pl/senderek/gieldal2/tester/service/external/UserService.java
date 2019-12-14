@@ -5,7 +5,9 @@ import pl.senderek.gieldal2.tester.model.User;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Interfejs zawiera wszystkie dostępne metody działąjące na użytkownikach, implementowane w klasie {@link pl.senderek.gieldal2.tester.service.external.impl.UserServiceImpl}
+ */
 public interface UserService extends StockApi {
     List<User> getAllUsers(TestContext context, String token);
 

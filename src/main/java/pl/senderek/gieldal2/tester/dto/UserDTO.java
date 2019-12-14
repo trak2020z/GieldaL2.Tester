@@ -1,5 +1,7 @@
 package pl.senderek.gieldal2.tester.dto;
-
+/**
+ * Przedstawia informacje o użytkowniku, zwracane z API
+ */
 public class UserDTO {
     private Long id;
     private String name;

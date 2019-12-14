@@ -1,5 +1,7 @@
 package pl.senderek.gieldal2.tester.dto;
-
+/**
+ * Przedstawia informacje o danej akcji, zwracane z API
+ */
 public class StockDTO {
     private Long Id;
     private String name;

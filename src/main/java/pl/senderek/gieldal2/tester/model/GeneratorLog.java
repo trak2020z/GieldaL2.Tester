@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * Reprezentuje tabelę w bazie danych, w której zapisywane są wszystkie informacje uzyskane przez testy.
  * @author Lukasz Wojtas
  */
 @Entity

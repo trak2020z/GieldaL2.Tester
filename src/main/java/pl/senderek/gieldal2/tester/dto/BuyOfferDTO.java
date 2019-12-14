@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
+/**
+ * Przedstawia informacje o ofercie kupna, zwrócone z API
+ */
 public class BuyOfferDTO {
     private Long id;
     private Long userId;

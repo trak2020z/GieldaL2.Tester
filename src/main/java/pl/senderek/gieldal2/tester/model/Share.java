@@ -1,5 +1,7 @@
 package pl.senderek.gieldal2.tester.model;
-
+/**
+ * Model udziału danej akcji, posiadanego przez użytkownika, wykorzystywany w logice aplikacji
+ */
 public class Share {
     private Long id;
     private Stock stock;

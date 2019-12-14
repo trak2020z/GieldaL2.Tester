@@ -82,5 +82,6 @@ public class GieldaL2Tester implements CommandLineRunner {
 
         for (Client client : clients)
             client.start();
+
     }
 }

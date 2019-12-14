@@ -2,7 +2,9 @@ package pl.senderek.gieldal2.tester.model;
 
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
-
+/**
+ * Model przedstawiający informacje testowe, uzyskiwane w aplikacji
+ */
 public class TestContext {
     private Long clientId;
     private Date testStartTime;

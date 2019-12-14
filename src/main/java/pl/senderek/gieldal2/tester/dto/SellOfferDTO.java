@@ -3,7 +3,9 @@ package pl.senderek.gieldal2.tester.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
-
+/**
+ * Przedstawia informacje o ofercie sprzedaży, zwrócone z API
+ */
 public class SellOfferDTO {
     private Long id;
     private Long userId;

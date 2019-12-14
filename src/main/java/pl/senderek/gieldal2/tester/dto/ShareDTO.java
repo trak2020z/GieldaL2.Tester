@@ -1,5 +1,7 @@
 package pl.senderek.gieldal2.tester.dto;
-
+/**
+ * Przedstawia udział danej akcji posiadany przez użytkownika
+ */
 public class ShareDTO {
     private Long id;
     private Long stockId;

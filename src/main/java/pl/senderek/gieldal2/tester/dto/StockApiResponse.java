@@ -1,5 +1,7 @@
 package pl.senderek.gieldal2.tester.dto;
-
+/**
+ *  Przedstawia informacje zwracane przy każdym zapytaniu z API
+ */
 public class StockApiResponse {
     private Integer backendTime;
 
