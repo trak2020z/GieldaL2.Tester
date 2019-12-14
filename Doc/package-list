@@ -1,5 +1,6 @@
 pl.senderek.gieldal2.tester
 pl.senderek.gieldal2.tester.config
+pl.senderek.gieldal2.tester.controller
 pl.senderek.gieldal2.tester.dto
 pl.senderek.gieldal2.tester.exception
 pl.senderek.gieldal2.tester.model
