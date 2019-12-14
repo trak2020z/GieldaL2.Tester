@@ -6,6 +6,9 @@ import org.mapstruct.Mappings;
 import pl.senderek.gieldal2.tester.dto.SellOfferDTO;
 import pl.senderek.gieldal2.tester.model.SellOffer;
 
+/**
+ * Interfejs pozwalający na mapowanie obiektów typu {@link pl.senderek.gieldal2.tester.model.SellOffer} na obieky {@link pl.senderek.gieldal2.tester.dto.SellOfferDTO} oraz na odwrót
+ */
 @Mapper(componentModel = "spring", uses = {UserMapper.class, ShareMapper.class})
 public interface SellOfferMapper {
     @Mappings({

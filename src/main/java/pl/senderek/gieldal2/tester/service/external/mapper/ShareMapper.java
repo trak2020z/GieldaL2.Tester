@@ -6,6 +6,9 @@ import org.mapstruct.Mappings;
 import pl.senderek.gieldal2.tester.dto.ShareDTO;
 import pl.senderek.gieldal2.tester.model.Share;
 
+/**
+ * Interfejs pozwalający na mapowanie obiektów typu {@link pl.senderek.gieldal2.tester.model.Share} na obieky {@link pl.senderek.gieldal2.tester.dto.ShareDTO} oraz na odwrót
+ */
 @Mapper(componentModel = "spring", uses = {UserMapper.class, StockMapper.class})
 public interface ShareMapper {
 

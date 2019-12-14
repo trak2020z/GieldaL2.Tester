@@ -22,7 +22,9 @@ import pl.senderek.gieldal2.tester.repository.GeneratorLogRepository;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Przedstawia implementacje metod dostępnych dla wszystkich innych serwisów
+ */
 public abstract class StockApiImpl {
     /**
      * Informacja o typie testu pobierana z application.properties

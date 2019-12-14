@@ -7,13 +7,11 @@ import pl.senderek.gieldal2.tester.model.User;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Interfejs zawiera wszystkie dostępne metody działąjące na ofertach sprzedaży, implementowane w klasie {@link pl.senderek.gieldal2.tester.service.external.impl.SellOfferServiceImpl}
+ */
 public interface SellOfferService extends StockApi {
     List<SellOffer> getAllSellOffers(TestContext context, String token);
-
-    List<SellOffer> getUserSellOffers(TestContext context, User user);
-
-    List<SellOffer> getStockSellOffers(TestContext context, Stock stock);
 
     void createSellOffer(TestContext context, SellOffer sellOffer, String token);
 

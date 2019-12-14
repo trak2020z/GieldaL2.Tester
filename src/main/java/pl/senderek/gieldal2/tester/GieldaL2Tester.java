@@ -31,7 +31,7 @@ public class GieldaL2Tester implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-//        testDB();
+        //testDB();
         testAPI();
     }
 
@@ -79,6 +79,7 @@ public class GieldaL2Tester implements CommandLineRunner {
         User nowy = userList.get(1);
         nowy.setName("kasd");
         nowy.setId(111L);
+        nowy.setPassword("1234");
         userService.createUser(context,nowy,token);
         Optional<User> optionalUser = userService.getUser(context, 1L, token);
         if (optionalUser.isPresent()) {
