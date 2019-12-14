@@ -44,6 +44,21 @@ public class ShareServiceImpl extends StockApiImpl implements ShareService {
     }
 
     /**
+     * Metoda wywołująca żądanie get, zwracająca wszystkie udziały podanego użytkownika
+     * @param context Informacja o wykonywanym teście
+     * @param user Obiekt użytkownika, którego udziały zostaną zwrócone
+     * @param token Token zalogowanego użytkownika, uzyskany za pomocą metody {@link #authenticateUser(User)}
+     * @return Zwraca uzyskaną z API listę udziałów podanego użytkownika, jako liste obiektów typu {@link pl.senderek.gieldal2.tester.model.SellOffer}
+     */
+    @Override
+    public List<Share> getUserShares(TestContext context, User user, String token) {
+        String url = USER_API + "/" + user.getId() + "/shares";
+        List<Share> shares = getList(context, url, ShareDTO.class, token).stream().map(mapper::shareDTOToShare).collect(Collectors.toList());
+        shares.forEach(x -> x.setOwner(user));
+        return shares;
+    }
+
+    /**
      * Metoda wywołuje żądanie get dla udziału o podanym id
      * @param context Informacja o wykonywanym teście
      * @param shareId Id udziału który zostanie zwrócony przez metodę
