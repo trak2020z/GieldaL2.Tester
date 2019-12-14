@@ -16,6 +16,12 @@ public class TestContext {
         reqNo = new AtomicInteger(0);
     }
 
+    public TestContext(Long clientId, Date testStartTime) {
+        this.clientId = clientId;
+        this.testStartTime = testStartTime;
+        reqNo = new AtomicInteger(0);
+    }
+
     public void nextRequest() {
         reqNo.incrementAndGet();
     }

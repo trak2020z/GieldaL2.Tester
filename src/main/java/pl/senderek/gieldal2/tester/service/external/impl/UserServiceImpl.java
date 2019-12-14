@@ -4,7 +4,8 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.senderek.gieldal2.tester.dto.UserDTO;
-import pl.senderek.gieldal2.tester.model.*;
+import pl.senderek.gieldal2.tester.model.TestContext;
+import pl.senderek.gieldal2.tester.model.User;
 import pl.senderek.gieldal2.tester.service.external.BuyOfferService;
 import pl.senderek.gieldal2.tester.service.external.SellOfferService;
 import pl.senderek.gieldal2.tester.service.external.ShareService;
@@ -62,6 +63,7 @@ public class UserServiceImpl extends StockApiImpl implements UserService {
         String url = USER_API + "/" + userId;
         return get(context, url, UserDTO.class, token).map(mapper::userDTOToUser);
     }
+
 
     /**
      * Metoda tworzy nowego użytkownika przez wywołania żądania post na adresie {@link #USER_API} za pomocą generycznej funkcji {@link #post(TestContext, String, Object, String)}

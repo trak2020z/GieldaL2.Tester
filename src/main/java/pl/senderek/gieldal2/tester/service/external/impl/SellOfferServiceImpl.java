@@ -5,13 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.senderek.gieldal2.tester.dto.SellOfferDTO;
 import pl.senderek.gieldal2.tester.model.SellOffer;
-import pl.senderek.gieldal2.tester.model.Stock;
 import pl.senderek.gieldal2.tester.model.TestContext;
-import pl.senderek.gieldal2.tester.model.User;
 import pl.senderek.gieldal2.tester.service.external.SellOfferService;
 import pl.senderek.gieldal2.tester.service.external.mapper.SellOfferMapper;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,6 +47,7 @@ public class SellOfferServiceImpl extends StockApiImpl implements SellOfferServi
         String url = SELL_OFFER_API;
         return getList(context, url, SellOfferDTO.class, token).stream().map(mapper::sellOfferDTOToSellOffer).collect(Collectors.toList());
     }
+
 
     /**
      * Metoda tworzy nową oferte sprzedaży przez wywołania żądania post na adresie {@link #SELL_OFFER_API} za pomocą generycznej funkcji {@link #post(TestContext, String, Object, String)}
