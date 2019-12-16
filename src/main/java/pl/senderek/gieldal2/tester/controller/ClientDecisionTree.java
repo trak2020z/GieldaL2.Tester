@@ -8,8 +8,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Klasa opisująca klienta, którego decyzje wyznaczane są na podstawie drzewa decyzyjnego.
+ */
 public class ClientDecisionTree extends Client {
 
+    /**
+     * Dostępne dla klienta akcje
+     */
     private enum Action {
         LOGIN, LOGOUT, BUY, SELL, BUY_OFFERS_CHECK, SELL_OFFERS_CHECK, SHARES_CHECK, CLIENT_SHARES_CHECK, STOCKS_CHECK, USERS_CHECK,
         PROFILE_CHECK, PROFILE_UPDATE
@@ -20,6 +26,9 @@ public class ClientDecisionTree extends Client {
         super(userService, shareService, stockService, buyOfferService, sellOfferService, user, clientId, testStartTime, testParams);
     }
 
+    /**
+     * Logowanie klienta oraz wykonywanie losowych akcji, dostępnych po poprzedniej, aż do wylogowania lub wykonania ustalonej w konfiguracji liczby akcji
+     */
     @Override
     public void run() {
         performLogIn();
@@ -40,6 +49,11 @@ public class ClientDecisionTree extends Client {
         }
     }
 
+    /**
+     * Metoda zwracająca liste dostępnych akcji typu {@link Action}, wyznaczaną na podstawie wcześcniejszej akcji
+     * @param lastAction Wcześniejsza akcja wykonana przez klienta
+     * @return Lista aktualnie dostępnych dla klienta akcji
+     */
     private List<Action> getNextPossibleActions(Action lastAction) {
         List<Action> nextPossibleActions = new ArrayList<>();
         nextPossibleActions.add(Action.BUY_OFFERS_CHECK);
@@ -69,6 +83,11 @@ public class ClientDecisionTree extends Client {
         return nextPossibleActions;
     }
 
+    /**
+     * Wykonanie podanej do metody akcji
+     * @param action Akcja która zostanie wykonana po wywołaniu funkcji
+     * @throws Exception Wyjątek przechwycony przy błędzie serwera
+     */
     private void performAction(Action action) throws Exception {
         switch (action) {
             case BUY:
