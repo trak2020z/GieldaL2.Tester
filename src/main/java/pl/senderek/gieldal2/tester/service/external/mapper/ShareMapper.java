@@ -6,6 +6,8 @@ import org.mapstruct.Mappings;
 import pl.senderek.gieldal2.tester.dto.ShareDTO;
 import pl.senderek.gieldal2.tester.model.Share;
 
+import java.util.List;
+
 /**
  * Interfejs pozwalający na mapowanie obiektów typu {@link pl.senderek.gieldal2.tester.model.Share} na obieky {@link pl.senderek.gieldal2.tester.dto.ShareDTO} oraz na odwrót
  */
@@ -19,4 +21,8 @@ public interface ShareMapper {
     ShareDTO shareToShareDTO(Share share);
 
     Share shareDTOToShare(ShareDTO share);
+
+    List<Share> shareDTOToShare(List<ShareDTO> shares);
+
+    List<ShareDTO> shareToShareDTO(List<Share> shares);
 }

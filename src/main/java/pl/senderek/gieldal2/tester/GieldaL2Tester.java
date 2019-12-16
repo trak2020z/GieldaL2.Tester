@@ -61,6 +61,9 @@ public class GieldaL2Tester implements CommandLineRunner {
         SpringApplication.run(GieldaL2Tester.class, args);
     }
 
+    /**
+     * Wykonanie określonego w polu {@link #TEST_TYPE} testu dla określonej w {@link #CLIENTS_QUANTITY} ilości klientów
+     */
     @Override
     public void run(String... args) {
         Date testStartTime = new Date();

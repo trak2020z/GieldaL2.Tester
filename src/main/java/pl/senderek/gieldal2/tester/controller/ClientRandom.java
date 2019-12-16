@@ -6,7 +6,9 @@ import pl.senderek.gieldal2.tester.service.external.*;
 
 import java.util.Date;
 import java.util.Iterator;
-
+/**
+ * Klasa opisująca klienta, którego decyzje wyznaczane są w sposób losowy.
+ */
 public class ClientRandom extends Client {
 
     public ClientRandom(UserService userService, ShareService shareService, StockService stockService, BuyOfferService buyOfferService,
@@ -14,6 +16,9 @@ public class ClientRandom extends Client {
         super(userService, shareService, stockService, buyOfferService, sellOfferService, user, clientId, testStartTime, testParams);
     }
 
+    /**
+     * Logowanie klienta oraz wywoływanie ustalonej ilości losowo wybranych akcji
+     */
     @Override
     public void run() {
         performLogIn();
