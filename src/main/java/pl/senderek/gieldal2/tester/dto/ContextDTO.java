@@ -1,49 +1,44 @@
 package pl.senderek.gieldal2.tester.dto;
 
-import pl.senderek.gieldal2.tester.model.BuyOffer;
-import pl.senderek.gieldal2.tester.model.SellOffer;
-import pl.senderek.gieldal2.tester.model.Share;
-import pl.senderek.gieldal2.tester.model.User;
-
 import java.util.List;
 /**
  * Przedstawia użytkownika wraz z jego akcjami, ofertami kupna oraz ofertami sprzedaży
  */
 public class ContextDTO {
-    private User user;
-    private List<Share> shares;
-    private List<SellOffer> sellOffers;
-    private List<BuyOffer> buyOffers;
+    private UserDTO user;
+    private List<ShareDTO> shares;
+    private List<SellOfferDTO> sellOffers;
+    private List<BuyOfferDTO> buyOffers;
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
-    public List<Share> getShares() {
+    public List<ShareDTO> getShares() {
         return shares;
     }
 
-    public void setShares(List<Share> shares) {
+    public void setShares(List<ShareDTO> shares) {
         this.shares = shares;
     }
 
-    public List<SellOffer> getSellOffers() {
+    public List<SellOfferDTO> getSellOffers() {
         return sellOffers;
     }
 
-    public void setSellOffers(List<SellOffer> sellOffers) {
+    public void setSellOffers(List<SellOfferDTO> sellOffers) {
         this.sellOffers = sellOffers;
     }
 
-    public List<BuyOffer> getBuyOffers() {
+    public List<BuyOfferDTO> getBuyOffers() {
         return buyOffers;
     }
 
-    public void setBuyOffers(List<BuyOffer> buyOffers) {
+    public void setBuyOffers(List<BuyOfferDTO> buyOffers) {
         this.buyOffers = buyOffers;
     }
 }

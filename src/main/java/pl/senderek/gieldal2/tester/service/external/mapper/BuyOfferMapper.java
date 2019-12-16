@@ -6,6 +6,8 @@ import org.mapstruct.Mappings;
 import pl.senderek.gieldal2.tester.dto.BuyOfferDTO;
 import pl.senderek.gieldal2.tester.model.BuyOffer;
 
+import java.util.List;
+
 /**
  * Interfejs pozwalający na mapowanie obiektów typu {@link pl.senderek.gieldal2.tester.model.BuyOffer} na obieky {@link pl.senderek.gieldal2.tester.dto.BuyOfferDTO} oraz na odwrót
  */
@@ -18,4 +20,8 @@ public interface BuyOfferMapper {
     BuyOfferDTO buyOfferToBuyOfferDTO(BuyOffer buyOffer);
 
     BuyOffer buyOfferDTOToBuyOffer(BuyOfferDTO buyOfferDTO);
+
+    List<BuyOfferDTO> buyOfferToBuyOfferDTO(List<BuyOffer> buyOffer);
+
+    List<BuyOffer> buyOfferDTOToBuyOffer(List<BuyOfferDTO> buyOfferDTO);
 }

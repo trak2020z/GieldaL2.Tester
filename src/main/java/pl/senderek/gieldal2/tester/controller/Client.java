@@ -1,8 +1,9 @@
 package pl.senderek.gieldal2.tester.controller;
 
-import jdk.nashorn.internal.runtime.options.Option;
+import pl.senderek.gieldal2.tester.exception.EmptyUserContextException;
 import pl.senderek.gieldal2.tester.model.*;
 import pl.senderek.gieldal2.tester.service.external.*;
+import pl.senderek.gieldal2.tester.service.external.impl.UserServiceImpl;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -12,8 +13,8 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- *  Opisuje klienta giełdy, z metodami wykonującymi dostępne mu akcje. Z klasy tej dziedziczą klasy {@link ClientDecisionTree} oraz {@link ClientRandom}
- *  dodając specyficzne dla nich pola i metody
+ * Opisuje klienta giełdy, z metodami wykonującymi dostępne mu akcje. Z klasy tej dziedziczą klasy {@link ClientDecisionTree} oraz {@link ClientRandom}
+ * dodając specyficzne dla nich pola i metody
  */
 public abstract class Client extends Thread {
     /**
@@ -54,7 +55,7 @@ public abstract class Client extends Thread {
     int actionNo;
 
     Client(UserService userService, ShareService shareService, StockService stockService, BuyOfferService buyOfferService,
-                  SellOfferService sellOfferService, User user, Long clientId, Date testStartTime, TestParams testParams) {
+           SellOfferService sellOfferService, User user, Long clientId, Date testStartTime, TestParams testParams) {
         context = new TestContext(clientId, testStartTime);
         this.user = user;
         this.userService = userService;
@@ -76,18 +77,19 @@ public abstract class Client extends Thread {
     }
 
     /**
-     * Metoda uzyskująca token użytkownika, oraz pobierająca z API wszytkie informacje z nim związane, przez wywołanie {@link pl.senderek.gieldal2.tester.service.external.impl.StockApiImpl#getUserContext(String)}
+     * Metoda uzyskująca token użytkownika, oraz pobierająca z API wszytkie informacje z nim związane, przez wywołanie {@link UserServiceImpl#getUserContext(TestContext, String)}
      */
     void performLogIn() {
         token = userService.authenticateUser(user);
         String password = user.getPassword();
-        user = userService.getUserContext(token);
+        user = userService.getUserContext(context, token).orElseThrow(EmptyUserContextException::new);
         user.setPassword(password);
     }
 
     /**
      * Metoda ustala właściwości oferty kupna, tak aby było na nią stać użytkownika. Cena jednej akcji obliczana jest na podstawie ceny pobranej z API zmniejszonej o ustalony procent.
      * Kupno akcji odbywa się przez wywołanie funkcji {@link #performBuy(BuyOffer, int)}
+     *
      * @throws Exception Wyjątek zgłaszany przy przerwaniu wątku w trakcie wywoływania funkcji {@code sleep}
      */
     void performBuy() throws Exception {
@@ -106,7 +108,8 @@ public abstract class Client extends Thread {
 
     /**
      * Metoda tworzy oferte kupna podaną do funkcji.
-     * @param buyOffer Utworzona w {@link #performBuy()} oferta kupna
+     *
+     * @param buyOffer      Utworzona w {@link #performBuy()} oferta kupna
      * @param changesNumber Liczba zmian ceny kupna. Zwiększenie ceny następuje jeśli nie udało się kupić akcji po poprzedniej cenie
      * @throws Exception Wyjątek zgłaszany przy przerwaniu wątku w trakcie wywoływania funkcji {@code sleep}
      */
@@ -118,7 +121,7 @@ public abstract class Client extends Thread {
 
             List<BuyOffer> buyOffers = buyOfferService.getAllBuyOffers(context, token);
             if (buyOffers != null && !buyOffers.isEmpty()) {
-                Optional <BuyOffer> lastOpt = buyOffers.stream().filter( x -> x.getDate().equals(buyOffer.getDate().truncatedTo(ChronoUnit.MILLIS))
+                Optional<BuyOffer> lastOpt = buyOffers.stream().filter(x -> x.getDate().equals(buyOffer.getDate().truncatedTo(ChronoUnit.MILLIS))
                         && (x.getBuyer().getId().equals(buyOffer.getBuyer().getId()))).findFirst();
                 if (lastOpt.isPresent()) {
                     BuyOffer last = lastOpt.get();
@@ -136,6 +139,7 @@ public abstract class Client extends Thread {
     /**
      * Metoda ustala właściwości oferty sprzedaży. Ustalana jest ilość sprzedawanych udziałów, oraz cena na podstawie danych z API i konfiguracji
      * Sprzedaż akcji odbywa się przez wywołanie funkcji {@link #performSell(SellOffer, int)}
+     *
      * @throws Exception Wyjątek zgłaszany przy przerwaniu wątku w trakcie wywoływania funkcji {@code sleep}
      */
     void performSell() throws Exception {
@@ -154,7 +158,8 @@ public abstract class Client extends Thread {
 
     /**
      * Metoda tworzy oferte sprzedaży podaną do funkcji.
-     * @param sellOffer Utworzona w {@link #performSell()} ()} oferta sprzedaży
+     *
+     * @param sellOffer     Utworzona w {@link #performSell()} ()} oferta sprzedaży
      * @param changesNumber Liczba zmian ceny sprzedaży. Zmniejszenie ceny następuje jeśli nie udało się sprzedać akcji po poprzedniej cenie
      * @throws Exception Wyjątek zgłaszany przy przerwaniu wątku w trakcie wywoływania funkcji {@code sleep}
      */
@@ -167,7 +172,7 @@ public abstract class Client extends Thread {
 
             List<SellOffer> sellOffers = sellOfferService.getAllSellOffers(context, token);
             if (sellOffers != null && !sellOffers.isEmpty()) {
-                Optional<SellOffer> lastOpt = sellOffers.stream().filter( x -> x.getDate().equals( sellOffer.getDate().truncatedTo(ChronoUnit.MILLIS)) &&
+                Optional<SellOffer> lastOpt = sellOffers.stream().filter(x -> x.getDate().equals(sellOffer.getDate().truncatedTo(ChronoUnit.MILLIS)) &&
                         x.getSeller().equals(sellOffer.getSeller())).findFirst();
                 if (lastOpt.isPresent()) {
                     SellOffer last = lastOpt.get();
@@ -184,8 +189,7 @@ public abstract class Client extends Thread {
      * Zapisanie informacji o użytkowniku w polu {@link #user}
      */
     void performProfileCheck() {
-        Optional<User> user = userService.getUser(context, this.user.getId(), token);
-        if (user.isPresent()) this.user = user.get();
+        userService.getUser(context, this.user.getId(), token).ifPresent(value -> this.user = value);
     }
 
     /**
@@ -201,30 +205,35 @@ public abstract class Client extends Thread {
     void performBuyOffersCheck() {
         buyOfferService.getAllBuyOffers(context, token);
     }
+
     /**
      * Sprawdzenie ofert sprzedaży
      */
     void performSellOffersCheck() {
         sellOfferService.getAllSellOffers(context, token);
     }
+
     /**
      * Sprawdzenie udziałów
      */
     void performSharesCheck() {
         shareService.getAllShares(context, token);
     }
+
     /**
      * Sprawdzenie udziałów użytkownika
      */
     void performClientSharesCheck() {
         shareService.getUserShares(context, user, token);
     }
+
     /**
      * Sprawdzenie akcji
      */
     void performStocksCheck() {
         stockService.getAllStocks(context, token);
     }
+
     /**
      * Sprawdzenie użytkowników
      */

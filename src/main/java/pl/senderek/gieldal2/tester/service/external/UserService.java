@@ -18,4 +18,6 @@ public interface UserService extends StockApi {
     void modifyUser(TestContext context, User user, String token);
 
     void deleteUser(TestContext context, Long userId, String token);
+
+    Optional<User> getUserContext(TestContext context, String token);
 }

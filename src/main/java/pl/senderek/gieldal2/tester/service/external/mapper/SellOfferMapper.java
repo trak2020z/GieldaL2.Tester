@@ -6,6 +6,8 @@ import org.mapstruct.Mappings;
 import pl.senderek.gieldal2.tester.dto.SellOfferDTO;
 import pl.senderek.gieldal2.tester.model.SellOffer;
 
+import java.util.List;
+
 /**
  * Interfejs pozwalający na mapowanie obiektów typu {@link pl.senderek.gieldal2.tester.model.SellOffer} na obieky {@link pl.senderek.gieldal2.tester.dto.SellOfferDTO} oraz na odwrót
  */
@@ -18,4 +20,8 @@ public interface SellOfferMapper {
     SellOfferDTO sellOfferToSellOfferDTO(SellOffer buyOffer);
 
     SellOffer sellOfferDTOToSellOffer(SellOfferDTO buyOfferDTO);
+
+    List<SellOfferDTO> sellOfferToSellOfferDTO(List<SellOffer> buyOffer);
+
+    List<SellOffer> sellOfferDTOToSellOffer(List<SellOfferDTO> buyOfferDTO);
 }
