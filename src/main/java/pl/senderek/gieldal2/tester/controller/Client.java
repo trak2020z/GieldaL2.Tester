@@ -94,7 +94,7 @@ public abstract class Client extends Thread {
      */
     void performBuy() throws Exception {
         List<Stock> stocks = stockService.getAllStocks(context, token);
-        if (stocks != null && !stocks.isEmpty()) {
+        if (stocks != null && !stocks.isEmpty() && user.getValue() > 0) {
             Stock stock = stocks.get(random.nextInt(stocks.size()));
 
             BuyOffer buyOffer = new BuyOffer();
