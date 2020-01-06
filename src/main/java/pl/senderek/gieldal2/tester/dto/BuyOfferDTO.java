@@ -9,26 +9,40 @@ import java.time.LocalDateTime;
  */
 public class BuyOfferDTO {
     private Long id;
-    private Long userId;
+    private Long buyerId;
     private Long stockId;
     private Integer amount;
     private Double price;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime date;
 
-    public Long getUserId() { return userId; }
+    public Long getBuyerId() {
+        return buyerId;
+    }
 
-    public void setUserId(Long userId) { this.userId = userId; }
+    public void setBuyerId(Long buyerId) {
+        this.buyerId = buyerId;
+    }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getStockId() { return stockId; }
+    public Long getStockId() {
+        return stockId;
+    }
 
-    public void setStockId(Long stockId) { this.stockId = stockId; }
+    public void setStockId(Long stockId) {
+        this.stockId = stockId;
+    }
 
-    public Integer getAmount() { return amount; }
+    public Integer getAmount() {
+        return amount;
+    }
 
     public void setAmount(Integer amount) { this.amount = amount; }
 
