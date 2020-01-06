@@ -19,6 +19,10 @@ public interface SellOfferMapper {
     })
     SellOfferDTO sellOfferToSellOfferDTO(SellOffer buyOffer);
 
+    @Mappings({
+            @Mapping(source = "userId", target = "seller.id"),
+            @Mapping(source = "shareId", target = "share.id")
+    })
     SellOffer sellOfferDTOToSellOffer(SellOfferDTO buyOfferDTO);
 
     List<SellOfferDTO> sellOfferToSellOfferDTO(List<SellOffer> buyOffer);

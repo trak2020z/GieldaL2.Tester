@@ -19,6 +19,10 @@ public interface BuyOfferMapper {
     })
     BuyOfferDTO buyOfferToBuyOfferDTO(BuyOffer buyOffer);
 
+    @Mappings({
+            @Mapping(source = "userId", target = "buyer.id"),
+            @Mapping(source = "stockId", target = "stock.id")
+    })
     BuyOffer buyOfferDTOToBuyOffer(BuyOfferDTO buyOfferDTO);
 
     List<BuyOfferDTO> buyOfferToBuyOfferDTO(List<BuyOffer> buyOffer);

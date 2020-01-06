@@ -20,6 +20,10 @@ public interface ShareMapper {
     })
     ShareDTO shareToShareDTO(Share share);
 
+    @Mappings({
+            @Mapping(source = "userId", target = "owner.id"),
+            @Mapping(source = "stockId", target = "stock.id")
+    })
     Share shareDTOToShare(ShareDTO share);
 
     List<Share> shareDTOToShare(List<ShareDTO> shares);
