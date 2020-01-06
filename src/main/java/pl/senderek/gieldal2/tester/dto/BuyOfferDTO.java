@@ -13,7 +13,7 @@ public class BuyOfferDTO {
     private Long stockId;
     private Integer amount;
     private Double price;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime date;
 
     public Long getUserId() { return userId; }

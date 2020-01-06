@@ -145,14 +145,17 @@ public abstract class Client extends Thread {
     void performSell() throws Exception {
         if (user.getShares() != null && !user.getShares().isEmpty()) {
             Share share = user.getShares().get(random.nextInt(user.getShares().size()));
+            Optional<Stock> stock = stockService.getStock(context, share.getStock().getId(), token);
 
-            SellOffer sellOffer = new SellOffer();
-            sellOffer.setSeller(user);
-            sellOffer.setShare(share);
-            sellOffer.setAmount(random.nextInt((share.getAmount().intValue())) + 1);
-            sellOffer.setPrice(share.getStock().getCurrentPrice() + testParams.getOfferFirstPriceDiff() * share.getStock().getCurrentPrice());
+            if (stock.isPresent()) {
+                SellOffer sellOffer = new SellOffer();
+                sellOffer.setSeller(user);
+                sellOffer.setShare(share);
+                sellOffer.setAmount(random.nextInt((share.getAmount().intValue())) + 1);
+                sellOffer.setPrice(stock.get().getCurrentPrice() + testParams.getOfferFirstPriceDiff() * stock.get().getCurrentPrice());
 
-            performSell(sellOffer, 0);
+                performSell(sellOffer, 0);
+            }
         }
     }
 

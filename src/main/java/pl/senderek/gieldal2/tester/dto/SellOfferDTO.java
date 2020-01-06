@@ -12,7 +12,7 @@ public class SellOfferDTO {
     private Long shareId;
     private Integer amount;
     private Double price;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime date;
 
     public Long getId() { return id; }
