@@ -11,6 +11,7 @@ import pl.senderek.gieldal2.tester.model.TestParams;
 import pl.senderek.gieldal2.tester.model.User;
 import pl.senderek.gieldal2.tester.service.external.*;
 import pl.senderek.gieldal2.tester.service.internal.GeneratorLogService;
+import pl.senderek.gieldal2.tester.tool.ApplicationPropertiesChecker;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,7 +59,11 @@ public class GieldaL2Tester implements CommandLineRunner {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(GieldaL2Tester.class, args);
+        ApplicationPropertiesChecker applicationPropertiesChecker = new ApplicationPropertiesChecker();
+        if (applicationPropertiesChecker.checkApplicationProperties())
+            SpringApplication.run(GieldaL2Tester.class, args);
+        else
+            System.exit(1);
     }
 
     /**
