@@ -1,7 +1,6 @@
 
 .idea
 .gradle
-/build/
 
 # User-specific stuff
 .idea/**/workspace.xml
@@ -9,6 +8,9 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+build/classes
+build/resources
+build/tmp
 
 # Gradle
 .idea/**/gradle.xml
