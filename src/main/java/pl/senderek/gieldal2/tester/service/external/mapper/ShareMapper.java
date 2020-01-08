@@ -15,11 +15,15 @@ import java.util.List;
 public interface ShareMapper {
 
     @Mappings({
-            @Mapping(source = "owner.id", target = "userId"),
+            @Mapping(source = "owner.id", target = "ownerId"),
             @Mapping(source = "stock.id", target = "stockId")
     })
     ShareDTO shareToShareDTO(Share share);
 
+    @Mappings({
+            @Mapping(source = "ownerId", target = "owner.id"),
+            @Mapping(source = "stockId", target = "stock.id")
+    })
     Share shareDTOToShare(ShareDTO share);
 
     List<Share> shareDTOToShare(List<ShareDTO> shares);

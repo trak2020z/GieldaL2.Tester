@@ -5,7 +5,7 @@ package pl.senderek.gieldal2.tester.dto;
 public class ShareDTO {
     private Long id;
     private Long stockId;
-    private Long userId;
+    private Long ownerId;
     private Long amount;
 
     public Long getId() {
@@ -16,19 +16,27 @@ public class ShareDTO {
         this.id = id;
     }
 
-    public Long getStockId() { return stockId; }
-
-    public void setStockId(Long stockId) { this.stockId = stockId; }
-
-    public Long getUserId() {
-        return userId;
+    public Long getStockId() {
+        return stockId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setStockId(Long stockId) {
+        this.stockId = stockId;
     }
 
-    public Long getAmount() { return amount; }
+    public Long getOwnerId() {
+        return ownerId;
+    }
 
-    public void setAmount(Long amount) { this.amount = amount; }
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
+    }
 }

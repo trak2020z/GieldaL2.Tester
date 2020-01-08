@@ -14,11 +14,15 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {UserMapper.class, ShareMapper.class})
 public interface SellOfferMapper {
     @Mappings({
-            @Mapping(source = "seller.id", target = "userId"),
+            @Mapping(source = "seller.id", target = "sellerId"),
             @Mapping(source = "share.id", target = "shareId")
     })
     SellOfferDTO sellOfferToSellOfferDTO(SellOffer buyOffer);
 
+    @Mappings({
+            @Mapping(source = "sellerId", target = "seller.id"),
+            @Mapping(source = "shareId", target = "share.id")
+    })
     SellOffer sellOfferDTOToSellOffer(SellOfferDTO buyOfferDTO);
 
     List<SellOfferDTO> sellOfferToSellOfferDTO(List<SellOffer> buyOffer);
