@@ -147,7 +147,7 @@ public abstract class Client extends Thread {
             Share share = user.getShares().get(random.nextInt(user.getShares().size()));
             Optional<Stock> stock = stockService.getStock(context, share.getStock().getId(), token);
 
-            if (stock.isPresent()) {
+            if (share.getAmount() > 0 && stock.isPresent()) {
                 SellOffer sellOffer = new SellOffer();
                 sellOffer.setSeller(user);
                 sellOffer.setShare(share);
