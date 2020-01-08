@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Klasa startowa aplikacji
+ */
 @SpringBootApplication
 public class GieldaL2Tester implements CommandLineRunner {
     @Value("${test.TEST_TYPE}")
