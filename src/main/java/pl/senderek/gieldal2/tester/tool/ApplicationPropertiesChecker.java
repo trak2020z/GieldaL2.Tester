@@ -46,6 +46,8 @@ public class ApplicationPropertiesChecker {
 
     /**
      * Metoda sprawdzająca obecność application.properties
+     *
+     * @return true - jeżeli file istnieje i posiada wszystkie klucze
      */
     public boolean checkApplicationProperties() {
         boolean ret = false;

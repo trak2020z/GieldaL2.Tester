@@ -11,6 +11,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+/**
+ * Klasa zawierająca konfiguracę Spinga
+ */
 @Configuration
 @EntityScan(basePackages = "pl.senderek.gieldal2.tester.model")
 @ComponentScan(basePackages = {"pl.senderek.gieldal2.tester.service.internal.impl",
