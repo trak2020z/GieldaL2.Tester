@@ -100,7 +100,10 @@ public abstract class Client extends Thread {
             BuyOffer buyOffer = new BuyOffer();
             buyOffer.setBuyer(user);
             buyOffer.setStock(stock);
-            buyOffer.setAmount(random.nextInt((int) (user.getValue() / stock.getCurrentPrice())) + 1);
+            int amount = 1;
+            if (stock.getCurrentPrice() > 0.0)
+                amount = random.nextInt((int) (user.getValue() / stock.getCurrentPrice()));
+            buyOffer.setAmount(amount);
             buyOffer.setPrice(stock.getCurrentPrice() - testParams.getOfferFirstPriceDiff() * stock.getCurrentPrice());
             performBuy(buyOffer, 0);
         }
@@ -151,7 +154,7 @@ public abstract class Client extends Thread {
                 SellOffer sellOffer = new SellOffer();
                 sellOffer.setSeller(user);
                 sellOffer.setShare(share);
-                sellOffer.setAmount(random.nextInt((share.getAmount().intValue())) + 1);
+                sellOffer.setAmount(random.nextInt(share.getAmount().intValue()) + 1);
                 sellOffer.setPrice(stock.get().getCurrentPrice() + testParams.getOfferFirstPriceDiff() * stock.get().getCurrentPrice());
 
                 performSell(sellOffer, 0);
